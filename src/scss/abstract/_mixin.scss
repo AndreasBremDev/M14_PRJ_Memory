@@ -1,0 +1,23 @@
+@mixin flex-direction-align-justify($direction:column, $align:center, $justify:center, $gap:0px){
+    display: flex;
+    flex-direction: $direction;
+    align-items: $align;
+    justify-content: $justify;
+    gap: $gap;
+}
+
+@mixin fade-in($time:0.3s, $ease: ease-in-out){
+    animation: fadeIn $time $ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0px);
+
+    }
+}

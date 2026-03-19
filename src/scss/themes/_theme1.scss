@@ -1,0 +1,18 @@
+.theme-one{
+    --background: hsla(180, 1%, 19%, 1);
+    --font-color: hsla(0, 0%, 100%, 1);
+    --card-back: hsla(164, 31%, 93%, 1);
+    --card-front-from: hsla(169, 47%, 37%, 1);
+    --main-theme-color: hsla(169, 62%, 57%, 1);
+    // --card-front-to:hsla(169, 62%, 57%, 1);
+    // --card-match: hsla(169, 62%, 57%, 1)
+    // --card-border:hsla(169, 62%, 57%, 1);
+    // --exit-border: hsla(169, 62%, 57%, 1)
+    --btn_exit_bg-unselect: hsla(169, 69%, 72%, 0.14);
+    --btn_exit_bg-selected: hsla(169, 69%, 72%, 0.26);
+    --btn_popup_back: hsla(169, 52%, 61%, 1);
+    --btn_popup_back_bg: hsla(169, 52%, 61%, 0.7);
+    --btn_popup_back_border-active:hsla(169, 53%, 48%, 1);
+    --btn_popup_exit_bg: hsla(169, 69%, 72%, 0.14);
+    // --btn_popup_exit_border: hsla(169, 62%, 57%, 1);
+}

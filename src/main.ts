@@ -1,4 +1,4 @@
-import './styles/style.scss';
+import './scss/main.scss';
     
 init();
 
@@ -13,5 +13,3 @@ function init() {
         })
     }
 }
-
-document.getElementById('h1_hello')!.innerText = 'Hello here';

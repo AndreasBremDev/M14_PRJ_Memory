@@ -1,0 +1,48 @@
+// @use '../abstract/mixin' as mx;
+// @use '../abstract/function' as fn;
+
+$breakpoints: (
+    zero: 0px,
+    small:480px,
+    medium:768px,
+    large: 1024px
+);
+
+@mixin respond($minSize:zero, $maxSize){
+    @media screen and (min-width: map-get($breakpoints, $minSize)) and (max-width: map-get($breakpoints, $maxSize)){
+        @content
+    }
+};
+
+.card {
+    background-color: #333;
+
+    // @include respond(zero, small){
+    //     font-size: fn.px-to-rem(10);
+    // };
+    // @include respond(small, medium){
+    //     font-size: fn.px-to-rem(16);
+    // };
+    // @include respond(medium, large){
+    //     font-size: fn.px-to-rem(32);
+    // };
+
+    // @include mx.flex-col-center;
+    // @include mx.fade-in(1s);
+
+    &__title {
+        color: green;
+    }
+
+    &__text {
+        color: white;
+
+        &--highlight{
+            color: red
+        }
+    }
+
+    &:hover{
+        background-color: rgba(0,0,0,0.5);
+    }
+}

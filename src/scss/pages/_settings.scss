@@ -1,0 +1,41 @@
+@use '../abstract/abstract_main' as abstr;
+
+$settings-padding: clamp(8px, 3vw, 24px);
+
+.screen-settings {
+    @include abstr.flex-direction-align-justify(column, start, start);
+    font-family: 'Almarai', sans-serif;
+}
+
+.settings {
+    &__h2 {
+        font-family: 'Red Rose', sans-serif;
+        font-weight: 700;
+        font-size: abstr.px-to-rem(54);
+        padding-top: clamp(64px, 5vw, 114px);
+        padding-inline: $settings-padding;
+        @include abstr.flex-direction-align-justify(column, start);
+    }
+
+    &__underline {
+        transform: translate(8px, -8px);
+    }
+
+    &__h3 {
+        @include abstr.flex-direction-align-justify(row, center, start, 4px);
+        margin-top: clamp(8px, 4vw, 62px);
+        padding-inline: $settings-padding;
+        font-size: abstr.px-to-rem(24);
+        font-weight: 700;
+    }
+
+    &__box {
+        @include abstr.flex-direction-align-justify(column, start, start, 12px);
+        padding-top: abstr.px-to-rem(16);
+
+        &__input {
+            @include abstr.flex-direction-align-justify(row, center, center, 8px);
+            padding-left: abstr.px-to-rem(62)
+        }
+    }
+}

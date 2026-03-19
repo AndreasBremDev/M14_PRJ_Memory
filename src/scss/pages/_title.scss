@@ -1,0 +1,67 @@
+@use '../abstract/abstract_main' as abstr;
+
+.screen-title {
+    @include abstr.flex-direction-align-justify();
+    font-family: 'Red Rose', sans-serif;
+}
+
+.title {
+    &__h2 {
+        font-size: clamp(32px, 13.7vw, 140px);
+        font-weight: 700;
+    }
+
+    &__p {
+        font-size: clamp(18px, 7vw, 48px);
+    }
+
+    &__btn__div {
+        @include abstr.flex-direction-align-justify(row);
+    }
+}
+
+.title__btn {
+    background-color: hsla(57, 81%, 69%, 1);
+    padding: clamp(4px, 7vw, 24px);
+    font-size: clamp(32px, 7vw, 40px);
+    font-weight: 700;
+    border-radius: abstr.px-to-rem(15);
+    transition: all 0.3s ease-in-out;
+    margin-top: clamp(8px, 10vh, 85px);
+    @include abstr.flex-direction-align-justify(row);
+    gap: abstr.px-to-rem(8);
+
+    &>.arrow path {
+        transition: stroke-width 0.3s ease-in-out, stroke 0.3s ease-in-out;
+        stroke: transparent;
+        stroke-width: 0;
+    }
+
+    &>.constroller_small {
+        transition: 0.3s ease-in-out;
+    }
+
+    &:hover {
+        transform: scale(1.05);
+        box-shadow: 3px 3px 15px hsla(0, 0%, 100%, 1);
+
+        &>.constroller_small {
+            transform: rotate(-18deg);
+        }
+
+        &>.arrow path {
+            stroke: #303131;
+            stroke-width: 1.5px;
+            stroke-linejoin: round;
+        }
+    }
+}
+
+.bg-controller {
+    --small: 240px;
+    --large: 720px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: clamp(var(--small), 35vw, var(--large)); 
+}
