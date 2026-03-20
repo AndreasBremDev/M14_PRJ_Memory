@@ -67,8 +67,9 @@ $settings-padding: clamp(8px, 3vw, 24px);
         padding-block: abstr.px-to-rem(14);
         font-size: abstr.px-to-rem(20);
         margin-top: clamp(8px, 4vw, 46px);
+        margin-bottom: abstr.px-to-rem(64);
 
-        &__line--mobile{
+        &__line--mobile {
             display: none;
         }
     }
@@ -97,6 +98,11 @@ $settings-padding: clamp(8px, 3vw, 24px);
             }
         }
     }
+}
+
+label,
+input {
+    cursor: pointer;
 }
 
 // input[radio] {

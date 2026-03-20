@@ -68,19 +68,19 @@
                         </h3>
                         <div class="settings__box">
                             <div class="settings__box__input">
-                                <input type="radio" id="theme1" value="Coding theme">
+                                <input type="radio" id="theme1" name="theme" value="Coding theme" onchange="updateSettingsSelectionToStartText('theme1')">
                                 <label for="theme1">Coding theme</label>
                             </div>
                             <div class="settings__box__input">
-                                <input type="radio" id="theme2" value="Gaming theme">
+                                <input type="radio" id="theme2" name="theme" value="Gaming theme">
                                 <label for="theme2">Gaming theme</label>
                             </div>
                             <div class="settings__box__input">
-                                <input type="radio" id="theme3" value="Projects theme">
+                                <input type="radio" id="theme3" name="theme" value="Projects theme">
                                 <label for="theme3">DA Projects theme</label>
                             </div>
                             <div class="settings__box__input">
-                                <input type="radio" id="theme4" value="foods">
+                                <input type="radio" id="theme4" name="theme" value="Foods theme">
                                 <label for="theme4">Foods theme</label>
                             </div>
                         </div>
@@ -103,11 +103,11 @@
                         </h3>
                         <div class="settings__box">
                             <div class="settings__box__input">
-                                <input type="radio" id="player1" value="Orange Player">
+                                <input type="radio" id="player1" name="player" value="Orange Player">
                                 <label for="player1">Orange</label>
                             </div>
                             <div class="settings__box__input">
-                                <input type="radio" id="player2" value="Blue Player">
+                                <input type="radio" id="player2" name="player" value="Blue Player">
                                 <label for="player2">Blue</label>
                             </div>
                         </div>
@@ -130,15 +130,15 @@
                         </h3>
                         <div class="settings__box">
                             <div class="settings__box__input">
-                                <input type="radio" id="board1" value="Board 16 cards">
+                                <input type="radio" id="board1" name="board" value="Board 16 cards">
                                 <label for="board1">16 cards</label>
                             </div>
                             <div class="settings__box__input">
-                                <input type="radio" id="board2" value="Board 24 cards">
+                                <input type="radio" id="board2" name="board" value="Board 24 cards">
                                 <label for="board2">24 cards</label>
                             </div>
                             <div class="settings__box__input">
-                                <input type="radio" id="board3" value="Board 36 cards">
+                                <input type="radio" id="board3" name="board" value="Board 36 cards">
                                 <label for="board3">36 cards</label>
                             </div>
                         </div>
@@ -153,12 +153,12 @@
                             alt="diagonal line" aria-hidden="true">
                         <img class="settings__start-section__line--mobile"
                             src="public/assets/img/2_line_left-to-right.svg" alt="straight line" aria-hidden="true">
-                        <p id="themePlayer">Player</p>
+                        <p id="playerText">Player</p>
                         <img class="settings__start-section__line" src="./assets/img/2_line_diagonal_bottom-top.svg"
                             alt="diagonal line" aria-hidden="true">
                         <img class="settings__start-section__line--mobile"
                             src="public/assets/img/2_line_left-to-right.svg" alt="straight line" aria-hidden="true">
-                        <p id="themeBoard">Board size</p>
+                        <p id="boardText">Board size</p>
                         <button id="settingsStartBtn" class="settings__btn" disabled>
                             <svg class="starticon" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
