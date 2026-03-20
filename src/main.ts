@@ -1,8 +1,8 @@
 import './scss/main.scss';
     
-init();
+flipCard();
 
-function init() {
+function flipCard():void {
     const fieldRef = document.getElementById('field');
     if (fieldRef) {
         fieldRef.addEventListener('click', e => {
@@ -12,4 +12,8 @@ function init() {
             }
         })
     }
+}
+
+function settingsSelection() {
+    
 }

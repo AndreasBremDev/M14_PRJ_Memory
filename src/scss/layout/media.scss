@@ -1,0 +1,94 @@
+@use '../abstract/abstract_main' as abstr;
+@use '../base/base_main' as base;
+
+
+@include abstr.responsive-media(768) {
+    @include abstr.theme-after(400px);
+}
+
+@include abstr.responsive-media(680) {
+    @include abstr.theme-after(300px);
+}
+
+@include abstr.responsive-media(580) {
+    @include abstr.theme-after(200px);
+}
+
+@include abstr.responsive-media(480) {
+    @include abstr.theme-after(100px);
+}
+
+@include abstr.responsive-media(380) {
+    @include abstr.theme-after(50px);
+}
+
+@media (max-width: 768px) {
+    .settings {
+        &__layout {
+            @include abstr.flex-direction-align-justify-gap(column, flex-start, space-between, 4px);
+
+            &__a,
+            &__b {
+                width: 100%;
+            }
+        }
+
+        &__start-section {
+            @include abstr.flex-direction-align-justify-gap(column, center, center, 8px);
+            width: 100%;
+            background-color: base.$background;
+            color: base.$text;
+
+            &__line {
+                display: none;
+
+                &--mobile {
+                    display: inline;
+                    height: abstr.px-to-rem(16);
+                }
+            }
+
+        }
+
+        &__theme-img {
+            display: none;
+        }
+    }
+
+    input[id="theme1"]:checked+label,
+    input[id="theme2"]:checked+label,
+    input[id="theme3"]:checked+label,
+    input[id="theme4"]:checked+label {
+        position: relative;
+    }
+
+    input[id="theme1"]:checked+label::after,
+    input[id="theme2"]:checked+label::after,
+    input[id="theme3"]:checked+label::after,
+    input[id="theme4"]:checked+label::after {
+        content: '';
+        position: absolute;
+        left: 160px;
+        filter: drop-shadow(3px 3px 5px rgba(255, 255, 255, 0.2));
+    }
+
+    input[id="theme1"]:checked+label::after {
+        background: url('../assets/img/2_theme_example1.png') no-repeat center center;
+        background-size: contain;
+    }
+
+    input[id="theme2"]:checked+label::after {
+        background: url('../assets/img/2_theme_example2.png') no-repeat center center;
+        background-size: contain;
+    }
+
+    input[id="theme3"]:checked+label::after {
+        background: url('../assets/img/2_theme_example3.png') no-repeat center center;
+        background-size: contain;
+    }
+
+    input[id="theme4"]:checked+label::after {
+        background: url('../assets/img/2_theme_example4.png') no-repeat center center;
+        background-size: contain;
+    }
+}

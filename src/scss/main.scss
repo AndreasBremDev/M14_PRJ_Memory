@@ -2,35 +2,5 @@
 @use './base/base_main';
 @use './components/components_main';
 @use './pages/pages_main';
+@use './layout/media.scss';
 
-
-.card {
-    height: 100px;
-    aspect-ratio: 1 / 1;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    
-    &__inner{
-        position: relative;
-        width: 100%;
-        height: 100%;
-        transform-style: preserve-3d;
-        transition: all 300ms ease-in-out
-    }
-    
-    &__face{
-        position: absolute;
-        inset: 0;
-        background-color: #333;
-        backface-visibility: hidden;
-
-        &--back{
-            transform: rotateY(180deg);
-            background-color: lightcoral;
-        }
-    }
-    &.is-flipped .card__inner{
-        transform: rotateY(180deg);
-    }
-}

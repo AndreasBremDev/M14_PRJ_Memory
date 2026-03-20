@@ -1,7 +1,7 @@
 @use '../abstract/abstract_main' as abstr;
 
 .screen-title {
-    @include abstr.flex-direction-align-justify();
+    @include abstr.flex-direction-align-justify-gap();
     font-family: 'Red Rose', sans-serif;
 }
 
@@ -16,7 +16,7 @@
     }
 
     &__btn__div {
-        @include abstr.flex-direction-align-justify(row);
+        @include abstr.flex-direction-align-justify-gap(row);
     }
 }
 
@@ -25,10 +25,10 @@
     padding: clamp(4px, 7vw, 24px);
     font-size: clamp(32px, 7vw, 40px);
     font-weight: 700;
-    border-radius: abstr.px-to-rem(15);
+    // border-radius: abstr.px-to-rem(15);
     transition: all 0.3s ease-in-out;
     margin-top: clamp(8px, 10vh, 85px);
-    @include abstr.flex-direction-align-justify(row);
+    @include abstr.flex-direction-align-justify-gap(row);
     gap: abstr.px-to-rem(8);
 
     &>.arrow path {

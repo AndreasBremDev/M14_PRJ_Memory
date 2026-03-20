@@ -1,4 +1,4 @@
-@mixin flex-direction-align-justify($direction:column, $align:center, $justify:center, $gap:0px){
+@mixin flex-direction-align-justify-gap($direction: column, $align: center, $justify: center, $gap: 0px) {
     display: flex;
     flex-direction: $direction;
     align-items: $align;
@@ -6,7 +6,7 @@
     gap: $gap;
 }
 
-@mixin fade-in($time:0.3s, $ease: ease-in-out){
+@mixin fade-in($time: 0.3s, $ease: ease-in-out) {
     animation: fadeIn $time $ease forwards;
 }
 
@@ -15,9 +15,41 @@
         opacity: 0;
         transform: translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0px);
 
+    }
+}
+
+$settingInputAfter: (
+    380: 380px,
+    480: 480px,
+    580: 580px,
+    680: 680px,
+    768: 768px
+);
+
+@mixin responsive-media($maxSize) {
+    @media (max-width: map-get($settingInputAfter, $maxSize)) {
+        @content
+    }
+}
+
+$theme-top-map: (
+    theme1: 0px,
+    theme2: -30px,
+    theme3: -60px,
+    theme4: -90px
+);
+
+@mixin theme-after($width) {
+    @each $theme, $top in $theme-top-map {
+        input[id="#{$theme}"]:checked+label::after {
+            width: $width;
+            height: calc(#{$width} / 1.1165);
+            top: $top;
+        }
     }
 }
