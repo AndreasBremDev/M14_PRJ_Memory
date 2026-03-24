@@ -6,6 +6,11 @@
 }
 
 .title {
+    &__heading{
+        margin: auto;
+        width: fit-content;
+    }
+
     &__h2 {
         font-size: clamp(32px, 13.7vw, 140px);
         font-weight: 700;

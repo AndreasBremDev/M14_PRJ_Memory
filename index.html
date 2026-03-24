@@ -12,10 +12,13 @@
     <section class="screen-title" style="display: none;">
         <article class="wrapper">
             <h1 class="sr-only">Memory Game</h1>
-            <p class="title__p">It's play time</p>
-            <h2 class="title__h2">Ready to play?</h2>
+            <div class="title__heading">
+                <p class="title__p">It's play time</p>
+                <h2 class="title__h2">Ready to play?</h2>
+            </div>
             <div class="title__btn__div">
-                <button class="title__btn" onclick="">
+                <button id="titleBtnPlay" class="title__btn" aria-label="open settings to choose, what pattern to play"
+                    aria-labelledby="settings__h2">
                     <svg class="constroller_small" width="44" height="32" viewBox="0 0 44 32" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -38,7 +41,7 @@
                 fill="#F0EA6E" />
         </svg>
     </section>
-    <section class="screen-settings" style="display: flex;">
+    <section class="screen-settings" style="display: none;">
         <article class="wrapper">
             <h2 class="settings__h2">Settings</h2>
             <div class="settings__underline" aria-hidden="true">
@@ -68,7 +71,7 @@
                         </h3>
                         <div class="settings__box">
                             <div class="settings__box__input">
-                                <input type="radio" id="theme1" name="theme" value="Coding theme" onchange="updateSettingsSelectionToStartText('theme1')">
+                                <input type="radio" id="theme1" name="theme" value="Coding theme">
                                 <label for="theme1">Coding theme</label>
                             </div>
                             <div class="settings__box__input">
@@ -104,11 +107,11 @@
                         <div class="settings__box">
                             <div class="settings__box__input">
                                 <input type="radio" id="player1" name="player" value="Orange Player">
-                                <label for="player1">Orange</label>
+                                <label for="player1">Blue</label>
                             </div>
                             <div class="settings__box__input">
                                 <input type="radio" id="player2" name="player" value="Blue Player">
-                                <label for="player2">Blue</label>
+                                <label for="player2">Orange</label>
                             </div>
                         </div>
                     </section>
@@ -152,14 +155,14 @@
                         <img class="settings__start-section__line" src="./assets/img/2_line_diagonal_bottom-top.svg"
                             alt="diagonal line" aria-hidden="true">
                         <img class="settings__start-section__line--mobile"
-                            src="public/assets/img/2_line_left-to-right.svg" alt="straight line" aria-hidden="true">
+                            src="./assets/img/2_line_left-to-right.svg" alt="straight line" aria-hidden="true">
                         <p id="playerText">Player</p>
                         <img class="settings__start-section__line" src="./assets/img/2_line_diagonal_bottom-top.svg"
                             alt="diagonal line" aria-hidden="true">
                         <img class="settings__start-section__line--mobile"
-                            src="public/assets/img/2_line_left-to-right.svg" alt="straight line" aria-hidden="true">
+                            src="./assets/img/2_line_left-to-right.svg" alt="straight line" aria-hidden="true">
                         <p id="boardText">Board size</p>
-                        <button id="settingsStartBtn" class="settings__btn" disabled>
+                        <button id="settingsStartGameBtn" class="settings__btn" disabled>
                             <svg class="starticon" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <mask id="mask0_2030_341" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0"
@@ -180,15 +183,36 @@
         </article>
     </section>
 
+    <section class="screen-game theme-one" style="display: flex;">
+        <div class="wrapper">
+            <header class="game__header">
+                <div class="game__header__player-info">
+                    <img id="gameImgPlayer1" src="./assets/img/3_theme1_player_1.svg" alt="Player blue icon">
+                    <span id="gamePlayer1Count" class="game__header__player-info--blue">0</span>
+                    <img id="gameImgPlayer2" src="./assets/img/3_theme1_player_2.svg" alt="Player orange icon">
+                    <span id="gamePlayer2Count" class="game__header__player-info--orange">0</span>
+                </div>
+                <div class="game__header__player-current">
+                    Current player: 
+                    <span id="gameImgPlayerCurrent">
+                        <img id="gameImgPlayer1" src="./assets/img/3_theme1_player_1.svg" alt="Player blue icon">
+                    </span></div>
+                <div>
 
-    <section id="field" style="display: none;">
-        <button class="card">
-            <div class="card__inner">
-                <div class="card__face"></div>
-                <div class="card__face card__face--back"></div>
-            </div>
-        </button>
+                </div>
+            </header>
+            <article id="field">
+                <button class="card">
+                    <div class="card__inner">
+                        <div class="card__face"></div>
+                        <div class="card__face card__face--back"></div>
+                    </div>
+                </button>
+            </article>
+
+        </div>
     </section>
+
 
 
     <script type="module" src="./src/main.ts"></script>

@@ -1,0 +1,30 @@
+@use '../abstract/abstract_main' as abstr;
+@use '../base/base_main' as base;
+@use '../themes/themes_main' as theme;
+
+.game {
+    &__header {
+        @include abstr.flex-direction-align-justify-gap(row, center, space-between);
+        box-sizing: border-box;
+        height: 62px;
+        font-size: abstr.px-to-rem(32);
+
+        &__player-info {
+            @include abstr.flex-direction-align-justify-gap(row, center, center, 8px);
+            background-color: var(--btn_exit_bg-unselect);
+            padding: 17px 20px;
+
+            &--blue {
+                color: #2BB1FF;
+            }
+
+            &--orange {
+                color: #F58E39;
+            }
+        }
+
+        &__player-current{
+            @include abstr.flex-direction-align-justify-gap(row,center, center, 8px);
+        }
+    }
+}

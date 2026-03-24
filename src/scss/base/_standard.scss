@@ -2,6 +2,9 @@ $background: hsla(180, 1%, 19%, 1);
 $text: hsla(0, 0%, 100%, 1);
 $startBtn: hsla(57, 81%, 69%, 1);
 $startBtn-Bg: hsl(0, 0%, 96%);
+$startBtn-Disabled-Bg: hsla(57, 7%, 85%, 1);
+$startBtn-Disabled-Text: hsla(0, 1%, 64%, 1);
+
 
 .sr-only {
     position: absolute;
@@ -17,7 +20,8 @@ $startBtn-Bg: hsl(0, 0%, 96%);
 
 
 .screen-title,
-.screen-settings {
+.screen-settings,
+.screen-game {
     width: 100%;
     min-height: 100dvh;
     background-color: $background;

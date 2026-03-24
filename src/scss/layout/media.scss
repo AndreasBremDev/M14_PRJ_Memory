@@ -32,12 +32,17 @@
                 width: 100%;
             }
         }
+        
+        &__btn:not(:disabled):hover {
+            box-shadow: 3px 3px 15px hsla(0, 0%, 100%, 1);
+        }
 
         &__start-section {
             @include abstr.flex-direction-align-justify-gap(column, center, center, 8px);
             width: 100%;
             background-color: base.$background;
             color: base.$text;
+            
 
             &__line {
                 display: none;

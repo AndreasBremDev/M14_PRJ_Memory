@@ -42,6 +42,11 @@ $settings-padding: clamp(8px, 3vw, 24px);
         &__b {
             @include abstr.flex-direction-align-justify-gap(column, flex-end, center);
             flex: 1;
+            padding-right: $settings-padding;
+            & > img {
+                filter: drop-shadow(3px 3px 5px rgba(255, 255, 255, 0.2));
+                margin-top: clamp(8px, 4vw, 62px);
+            }
         }
     }
 
@@ -74,7 +79,22 @@ $settings-padding: clamp(8px, 3vw, 24px);
         }
     }
 
-    &__btn {
+    &__btn:disabled {
+        background-color: base.$startBtn-Disabled-Bg;
+        color: base.$startBtn-Disabled-Text;
+        padding: clamp(4px, 3vw, 14px);
+        font-size: abstr.px-to-rem(24);
+        @include abstr.flex-direction-align-justify-gap(row);
+        gap: abstr.px-to-rem(8);
+        margin-left: abstr.px-to-rem(8);
+        cursor: auto;
+        
+        &>.starticon g path {
+            fill: #A3A1A1;
+        }
+    }
+    
+    &__btn:not(:disabled) {
         background-color: base.$startBtn;
         color: base.$background;
         padding: clamp(4px, 3vw, 14px);
@@ -91,7 +111,7 @@ $settings-padding: clamp(8px, 3vw, 24px);
 
         &:hover {
             transform: scale(1.05);
-            box-shadow: 3px 3px 15px hsla(0, 0%, 100%, 1);
+            box-shadow: 3px 3px 15px hsla(0, 0%, 0%, 0.3);
 
             &>.starticon {
                 transform: rotate(-14deg);
