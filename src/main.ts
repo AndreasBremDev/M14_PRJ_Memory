@@ -97,7 +97,6 @@ function registerEventListener_SectionSetting_StartGame(): void{
 
 function startGame() {
     if (settingIsChecked.every(el => el === 1)){
-        // settingIsChecked = [0, 0, 0];
         showSection(2)
     }
 }

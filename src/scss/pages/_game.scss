@@ -2,17 +2,27 @@
 @use '../base/base_main' as base;
 @use '../themes/themes_main' as theme;
 
+.screen-game {
+    font-family: 'Red Rose', sans-serif;
+}
+
+.pd-general {
+    padding-inline: base.$settings-padding;
+}
+
 .game {
     &__header {
         @include abstr.flex-direction-align-justify-gap(row, center, space-between);
         box-sizing: border-box;
-        height: 62px;
+        min-height: abstr.px-to-rem(64);
         font-size: abstr.px-to-rem(32);
+        margin-top: base.$settings-padding-top;
 
         &__player-info {
             @include abstr.flex-direction-align-justify-gap(row, center, center, 8px);
             background-color: var(--btn_exit_bg-unselect);
             padding: 17px 20px;
+            max-height: abstr.px-to-rem(64);
 
             &--blue {
                 color: #2BB1FF;
@@ -23,8 +33,24 @@
             }
         }
 
-        &__player-current{
-            @include abstr.flex-direction-align-justify-gap(row,center, center, 8px);
+        &__player-current {
+            @include abstr.flex-direction-align-justify-gap(row, center, center, 8px);
+            min-height: abstr.px-to-rem(64);
         }
+
+        &__exit {
+            @include abstr.flex-direction-align-justify-gap(row, center, center, 8px);
+            font-size: abstr.px-to-rem(24);
+            font-weight: 700;
+            color: base.$text;
+            min-height: abstr.px-to-rem(64);
+            padding: 16px 24px;
+            background-color: hsla(169, 69%, 72%, 0.14); // need update, according to Theme-Choice
+        }
+    }
+
+    &__field{
+        @include abstr.flex-direction-align-justify-gap(row, center, center, 16px);
+        flex: 1;
     }
 }

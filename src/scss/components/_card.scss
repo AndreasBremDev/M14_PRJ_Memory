@@ -1,5 +1,6 @@
-// @use '../abstract/mixin' as mx;
-// @use '../abstract/function' as fn;
+@use '../abstract/abstract_main' as abstr;
+@use '../base/base_main' as base;
+@use '../themes/themes_main' as theme;
 
 
 
@@ -55,13 +56,15 @@
     &__face{
         position: absolute;
         inset: 0;
-        background-color: lightgreen;
+        background: linear-gradient(45deg, hsla(169, 47%, 37%, 1), hsla(169, 62%, 57%, 1));
         backface-visibility: hidden;
         border-radius: 15px;
+        @include abstr.flex-direction-align-justify-gap(row, center, center);
 
         &--back{
             transform: rotateY(180deg);
-            background-color: lightcoral;
+            background: hsla(164, 31%, 93%, 1);
+            @include abstr.flex-direction-align-justify-gap(row, center, center, 8px);
         }
     }
     &.is-flipped .card__inner{
