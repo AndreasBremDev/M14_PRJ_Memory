@@ -1,4 +1,5 @@
 import './scss/main.scss';
+import { renderCardsHTML } from './template';
 
 let settingIsChecked = [0, 0, 0];
 init();
@@ -7,7 +8,6 @@ function init() {
     registerEventListener_TitlePageStartBtn();
     registerEventListener_SectionSetting();
     registerEventListener_SectionSetting_StartGame();
-    flipCard();
 }
 
 function registerEventListener_TitlePageStartBtn(): void {
@@ -31,7 +31,7 @@ function registerEventListener_SectionSetting(): void {
             setText(event, sourceIdName);
             setIsChecked(event, sourceIdName);
             settingsValidation();
-                (sourceIdName === 'theme') && updateImgSrc(sourceIdNr);
+            (sourceIdName === 'theme') && updateImgSrc(sourceIdNr);
         })
     })
 }
@@ -88,7 +88,7 @@ function toggleDisableStartGameBtn(elem: HTMLButtonElement, bool: boolean): void
     elem.setAttribute('aria-disabled', `${bool}`);
 }
 
-function registerEventListener_SectionSetting_StartGame(): void{
+function registerEventListener_SectionSetting_StartGame(): void {
     let settingsStartGameBtn = document.getElementById('settingsStartGameBtn') as HTMLButtonElement;
     if (settingsStartGameBtn) {
         settingsStartGameBtn.addEventListener('click', startGame)
@@ -96,19 +96,31 @@ function registerEventListener_SectionSetting_StartGame(): void{
 }
 
 function startGame() {
-    if (settingIsChecked.every(el => el === 1)){
-        showSection(2)
+    if (settingIsChecked.every(el => el === 1)) {
+        showSection(2);
+        renderCards();
+        flipCard();
+    }
+}
+
+function renderCards(){
+    let gameField = document.getElementById('gameField') as HTMLElement;
+    if (gameField) {
+        for (let i = 0; i < 16; i++) {
+            gameField.innerHTML += renderCardsHTML(i)
+            
+        }
     }
 }
 
 function flipCard(): void {
-    const fieldRef = document.getElementById('field');
+    const fieldRef = document.querySelectorAll('.field') as NodeListOf<HTMLElement>;
     if (fieldRef) {
-        fieldRef.addEventListener('click', e => {
+        fieldRef.forEach(item => item.addEventListener('click', e => {
             const card = (e.target as HTMLElement).closest('.card') as HTMLButtonElement;
             if (card) {
-                card.classList.toggle('is-flipped')
+                card.classList.toggle('is-flipped');
             }
-        })
+        }))
     }
 }
