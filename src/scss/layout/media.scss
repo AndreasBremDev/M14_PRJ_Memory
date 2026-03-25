@@ -102,5 +102,42 @@
             @include abstr.flex-direction-align-justify-gap(column-reverse, center, center, 8px);
             margin-top: clamp(16px, 3vw, 40px);
         }
+
+        &__field {
+            grid-template-columns: repeat(4, 120px);
+        }
+    }
+}
+
+@media (max-width: 562px) {
+
+    .game__field__card {
+        height: 75px;
+    }
+
+    .game {
+
+        &__field {
+            grid-template-columns: repeat(4, 75px);
+        }
+    }
+}
+
+@media (max-width: 370px) {
+
+    .game__field__card {
+        height: 50px;
+
+        &__face > img {
+            width: 45px;
+            
+        }
+    }
+
+    .game {
+
+        &__field {
+            grid-template-columns: repeat(4, 50px);
+        }
     }
 }

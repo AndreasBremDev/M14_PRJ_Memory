@@ -1,4 +1,4 @@
-.theme-one{
+.screen-game[data-theme="theme1"]{
     --background: hsla(180, 1%, 19%, 1);
     --font-color: hsla(0, 0%, 100%, 1);
     --main-theme-color: hsla(169, 62%, 57%, 1);
@@ -16,3 +16,40 @@
 // --card-border:hsla(169, 62%, 57%, 1);
 // --exit-border: hsla(169, 62%, 57%, 1)
 // --btn_popup_exit_border: hsla(169, 62%, 57%, 1);
+
+// .screen-game [data-theme='theme2'] {
+// --background: hala(230, 32%, 15%, 1);
+// -font-colors hela(218, 40%, 90%, 1);
+// main-theme-color: Ohsta(348, 85%, 63%, 1);
+// -card-backs ☐ hsla(228, 31%, 24%, 1);
+// -card-front-from Ohsla(348, 71%, 44%, 1);
+// bts_exit by-select: Ohsla(348, 85%, 63%, 0.14);
+// btn_exit.bg-selected: Ohsla(348, 85%, 63%, 0.25);
+// -bitno popup backs hsla(348, 85%, 63%, 1);
+// -btn_popup back bgt hala(348, 85%, 63%, 0.7);
+// -tite_popup hack boriler-active: Ohsla (348, 78%, 52%, 2);
+// btn_popup_exit hgs Ohsta(348, 85%, 63%, 0.14);
+// screen-game[data-theme='theme3') {
+// --background: hsla(214, 47%, 18%, 1);
+// -font-colars nsla (204, 33%, 97%, 1);
+// heme-colorthsta(44,9%, 61%, 1);
+// -car-backs Chala(212, 31%, 29%, 1);
+// cand-front-Front Ohsta(205, 66%, 44%, 1);
+// -btrexstag unselects Osla(44, 89%, 616, 0.14);
+// ato exit.bg-selecteds Onsla(44, 89%, 61%, 0.26);
+// back: hsla(44, 89%, 63%, 1);
+// back bg: hsia(44, 89%, 614, 0.7);
+// -btn popup back_border-active: Chsla(40, 86%, 48%, 1);
+// -btn_popup exit bột hala(44, 89%, 61%, 0.14);
+// screen-game[data-theme="theme4') {
+// --background: Ohsla(18, 42%, 17%, 1);
+// Marshsla(42, 60%, 96%, 1);
+// -color: @hsta(22,88,62%, 1);
+// and-backhsla(43, 51%, 83%, 1);
+// ront-from lista (14, 60%, 47%, 1);
+// -litnexttig-unselectt Osla(22,8% 62%, 0.14);
+// btn_exit.bg selectedt Dhsla(22, 80%, 62%, 0.26);
+// -btn.popup becks hsla(22, 88%, 62%, 1);
+// -hto popup back bg: hsla(22, 88%, 62%, 0.7):
+// back border-actives Chsla(18, 77%, 48%, 1);
+// bits_popup_exit bg: Ohsia (22, 88%, 67%, 0.14);

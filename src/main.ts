@@ -1,10 +1,17 @@
 import './scss/main.scss';
 import { renderCardsHTML } from './template';
 
-let settingIsChecked = [0, 0, 0];
+let settingIsChecked: (0 | 1)[] = [0, 0, 0];
+let selectedTheme: string = 'theme1';
+let selectedPlayer: number = 1;
+let selectedCards: number = 24;
+let cardsArr: number[] = [];
+
+
 init();
 
 function init() {
+    applyThemeToSectionScreenGame(selectedTheme);
     registerEventListener_TitlePageStartBtn();
     registerEventListener_SectionSetting();
     registerEventListener_SectionSetting_StartGame();
@@ -28,12 +35,52 @@ function registerEventListener_SectionSetting(): void {
     sourceArr.forEach(source => {
         source.addEventListener('click', (event: Event) => {
             let { sourceIdName, sourceIdNr }: { sourceIdName: string; sourceIdNr: string; } = retrieveElementIdentifiers(event);
-            setText(event, sourceIdName);
-            setIsChecked(event, sourceIdName);
+            setText_SectionSetting(event, sourceIdName);
+            actionBasedOnSelection_SectionSetting(sourceIdNr, sourceIdName);
             settingsValidation();
-            (sourceIdName === 'theme') && updateImgSrc(sourceIdNr);
         })
     })
+}
+
+function actionBasedOnSelection_SectionSetting(sourceIdNr: string, sourceIdName: string): void {
+    switch (sourceIdName) {
+        case 'theme':
+            actionBasedOnSelection_theme(sourceIdNr);
+            break;
+        case 'player':
+            actionBasedOnSelection_player(sourceIdNr);
+            break;
+        case 'board':
+            actionBasedOnSelection_board(sourceIdNr);
+            break;
+        default:
+            break;
+    }
+}
+
+function actionBasedOnSelection_board(sourceIdNr: string) {
+    if (sourceIdNr === '1') {
+        selectedCards = 16;
+    } else if (sourceIdNr === '2') {
+        selectedCards = 24;
+    } else if (sourceIdNr === '3') {
+        selectedCards = 32;
+    } else {
+        selectedCards = 16;
+    }
+    settingIsChecked[2] = 1;
+}
+
+function actionBasedOnSelection_player(sourceIdNr: string) {
+    selectedPlayer = parseInt(sourceIdNr);
+    settingIsChecked[1] = 1;
+}
+
+function actionBasedOnSelection_theme(sourceIdNr: string) {
+    selectedTheme = `theme${sourceIdNr}`;
+    updateImgSrc(sourceIdNr);
+    applyThemeToSectionScreenGame(selectedTheme);
+    settingIsChecked[0] = 1;
 }
 
 function retrieveElementIdentifiers(event: Event) {
@@ -43,7 +90,7 @@ function retrieveElementIdentifiers(event: Event) {
     return { sourceIdName, sourceIdNr };
 }
 
-function setText(event: Event, sourceIdName: string): void {
+function setText_SectionSetting(event: Event, sourceIdName: string): void {
     let sourceElem = event.target as HTMLInputElement;
     let sourceValue: string = sourceElem.value;
     let targetElem = document.querySelector(`div.settings__start-section > [id^=${sourceIdName}`) as HTMLElement;
@@ -55,20 +102,12 @@ function updateImgSrc(sourceIdNr: string): void {
     targetElem.src = targetElem.src.slice(0, -5) + sourceIdNr + targetElem.src.slice(-4, targetElem.src.length);
 }
 
-function setIsChecked(event: Event, sourceIdName: string): void {
-    switch (sourceIdName) {
-        case 'theme':
-            settingIsChecked[0] = 1;
-            break;
-        case 'player':
-            settingIsChecked[1] = 1;
-            break;
-        case 'board':
-            settingIsChecked[2] = 1;
-            break;
-        default:
-            break;
+function applyThemeToSectionScreenGame(themeName: string): void {
+    const sectionScreenGame = document.querySelector('.screen-game') as HTMLElement | null;
+    if (sectionScreenGame) {
+        sectionScreenGame.dataset.theme = themeName;
     }
+
 }
 
 function settingsValidation(): void {
@@ -98,29 +137,59 @@ function registerEventListener_SectionSetting_StartGame(): void {
 function startGame() {
     if (settingIsChecked.every(el => el === 1)) {
         showSection(2);
-        renderCards();
-        flipCard();
+        setCardsArray(selectedCards)
+        shuffleArray(cardsArr);
+        renderCards(cardsArr);
+        registerEventListener_flipCard();
     }
 }
 
-function renderCards(){
+intermediate();
+function intermediate() {
+    setCardsArray(selectedCards)
+    shuffleArray(cardsArr);
+    console.log(cardsArr);
+    
+    renderCards(cardsArr);
+    
+    registerEventListener_flipCard();
+}
+
+function renderCards(arr: number[]) {
     let gameField = document.getElementById('gameField') as HTMLElement;
     if (gameField) {
-        for (let i = 0; i < 16; i++) {
-            gameField.innerHTML += renderCardsHTML(i)
-            
+        gameField.innerHTML = '';
+        if (arr.length === 0) return;
+        for (let i = 0; i < arr.length; i++) {
+            gameField.innerHTML += renderCardsHTML(arr[i]);
         }
     }
 }
 
-function flipCard(): void {
-    const fieldRef = document.querySelectorAll('.field') as NodeListOf<HTMLElement>;
+function setCardsArray(selectedCards: number): number[] {
+    for (let i = 0; i < selectedCards; i++) {
+        cardsArr[i] = i % (selectedCards / 2)
+    }
+    return cardsArr;
+}
+
+function shuffleArray(cardsArr: number[]): number[] {
+    for (let i = cardsArr.length - 1; i > 0; i--) {
+        const random = Math.floor(Math.random() * (i + 1));
+        [cardsArr[i], cardsArr[random]] = [cardsArr[random], cardsArr[i]];
+    }
+    return cardsArr;
+}
+
+function registerEventListener_flipCard(): void {
+    const fieldRef = document.querySelectorAll('.game__field__article') as NodeListOf<HTMLElement>;
     if (fieldRef) {
         fieldRef.forEach(item => item.addEventListener('click', e => {
-            const card = (e.target as HTMLElement).closest('.card') as HTMLButtonElement;
+            const card = (e.target as HTMLElement).closest('.game__field__card') as HTMLButtonElement;
             if (card) {
                 card.classList.toggle('is-flipped');
             }
         }))
     }
 }
+

@@ -37,8 +37,8 @@
 //     }
 // }
 
-.card {
-    height: 100px;
+.game__field__card {
+    height: 120px;
     aspect-ratio: 1 / 1;
     background-color: transparent;
     border: none;
@@ -59,7 +59,7 @@
         background: linear-gradient(45deg, hsla(169, 47%, 37%, 1), hsla(169, 62%, 57%, 1));
         backface-visibility: hidden;
         border-radius: 15px;
-        @include abstr.flex-direction-align-justify-gap(row, center, center);
+        @include abstr.flex-direction-align-justify-gap(row, center, center, 8px);
 
         &--back{
             transform: rotateY(180deg);
@@ -67,7 +67,7 @@
             @include abstr.flex-direction-align-justify-gap(row, center, center, 8px);
         }
     }
-    &.is-flipped .card__inner{
+    &.is-flipped .game__field__card__inner{
         transform: rotateY(180deg);
     }
 }
