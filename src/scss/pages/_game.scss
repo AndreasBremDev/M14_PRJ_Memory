@@ -26,10 +26,12 @@
 
             &--blue {
                 color: #2BB1FF;
+                width: abstr.px-to-rem(32);
             }
 
             &--orange {
                 color: #F58E39;
+                width: abstr.px-to-rem(32);
             }
         }
 
@@ -51,7 +53,7 @@
 
     &__field{
         display: grid;
-        grid-template-columns: repeat(4, 120px);
+        grid-template-columns: repeat(4, 120px); // need update, according to choice (16 -> 4 (x4)/ 24 -> 6 (x4) / 36 -> 6 (x6))
         place-items: center;
         gap: clamp(8px, 2.5vw, 24px);
         justify-content: center;

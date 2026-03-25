@@ -70,4 +70,9 @@
     &.is-flipped .game__field__card__inner{
         transform: rotateY(180deg);
     }
+    &.is-matching{
+        outline: 5px solid hsla(169, 62%, 57%, 1);
+        border-radius: 15px;
+        box-shadow: 6px 6px 8px hsla(169, 62%, 57%, 1);
+    }
 }

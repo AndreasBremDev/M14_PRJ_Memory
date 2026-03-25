@@ -2,7 +2,7 @@
 export function renderCardsHTML(i:number) {
     return /* html */`
     <article class="game__field__article">
-        <button class="game__field__card">
+        <button class="game__field__card" data-id="${i+1}">
             <div class="game__field__card__inner">
                 <div class="game__field__card__face">
                     <img src="./assets/img/3_card_front_DA_icon.svg" alt="Developer Academy logo">

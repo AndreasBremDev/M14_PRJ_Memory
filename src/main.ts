@@ -4,8 +4,12 @@ import { renderCardsHTML } from './template';
 let settingIsChecked: (0 | 1)[] = [0, 0, 0];
 let selectedTheme: string = 'theme1';
 let selectedPlayer: number = 1;
-let selectedCards: number = 24;
+let selectedCards: number = 16;
 let cardsArr: number[] = [];
+let cardsFlipped:number = 0;
+let openCardElements: HTMLElement[] = [];
+let player1Count: number = 0;
+let player2Count: number = 0;
 
 
 init();
@@ -58,29 +62,30 @@ function actionBasedOnSelection_SectionSetting(sourceIdNr: string, sourceIdName:
     }
 }
 
-function actionBasedOnSelection_board(sourceIdNr: string) {
-    if (sourceIdNr === '1') {
-        selectedCards = 16;
-    } else if (sourceIdNr === '2') {
-        selectedCards = 24;
-    } else if (sourceIdNr === '3') {
-        selectedCards = 32;
-    } else {
-        selectedCards = 16;
-    }
-    settingIsChecked[2] = 1;
+function actionBasedOnSelection_theme(sourceIdNr: string) {
+    selectedTheme = `theme${sourceIdNr}`;
+    updateImgSrc(sourceIdNr, 'settingThemeExample');
+    applyThemeToSectionScreenGame(selectedTheme);
+    settingIsChecked[0] = 1;
 }
 
 function actionBasedOnSelection_player(sourceIdNr: string) {
     selectedPlayer = parseInt(sourceIdNr);
+    updateImgSrc(sourceIdNr, 'gameImgPlayerCurrent');
     settingIsChecked[1] = 1;
 }
 
-function actionBasedOnSelection_theme(sourceIdNr: string) {
-    selectedTheme = `theme${sourceIdNr}`;
-    updateImgSrc(sourceIdNr);
-    applyThemeToSectionScreenGame(selectedTheme);
-    settingIsChecked[0] = 1;
+function actionBasedOnSelection_board(sourceIdNr: string) {
+    settingIsChecked[2] = 1;
+    if (sourceIdNr === '1') {
+        return selectedCards = 16;
+    } else if (sourceIdNr === '2') {
+        return selectedCards = 24;
+    } else if (sourceIdNr === '3') {
+        return selectedCards = 36;
+    } else {
+        return selectedCards = 16;
+    }
 }
 
 function retrieveElementIdentifiers(event: Event) {
@@ -97,8 +102,8 @@ function setText_SectionSetting(event: Event, sourceIdName: string): void {
     targetElem.innerText = sourceValue;
 }
 
-function updateImgSrc(sourceIdNr: string): void {
-    let targetElem = document.getElementById('settingThemeExample') as HTMLImageElement;
+function updateImgSrc(sourceIdNr: string, HtmlElem: string): void {
+    let targetElem = document.getElementById(HtmlElem) as HTMLImageElement;
     targetElem.src = targetElem.src.slice(0, -5) + sourceIdNr + targetElem.src.slice(-4, targetElem.src.length);
 }
 
@@ -148,10 +153,7 @@ intermediate();
 function intermediate() {
     setCardsArray(selectedCards)
     shuffleArray(cardsArr);
-    console.log(cardsArr);
-    
     renderCards(cardsArr);
-    
     registerEventListener_flipCard();
 }
 
@@ -174,6 +176,7 @@ function setCardsArray(selectedCards: number): number[] {
 }
 
 function shuffleArray(cardsArr: number[]): number[] {
+    /* Fisher-Yates algorithm */
     for (let i = cardsArr.length - 1; i > 0; i--) {
         const random = Math.floor(Math.random() * (i + 1));
         [cardsArr[i], cardsArr[random]] = [cardsArr[random], cardsArr[i]];
@@ -184,12 +187,72 @@ function shuffleArray(cardsArr: number[]): number[] {
 function registerEventListener_flipCard(): void {
     const fieldRef = document.querySelectorAll('.game__field__article') as NodeListOf<HTMLElement>;
     if (fieldRef) {
-        fieldRef.forEach(item => item.addEventListener('click', e => {
-            const card = (e.target as HTMLElement).closest('.game__field__card') as HTMLButtonElement;
-            if (card) {
-                card.classList.toggle('is-flipped');
-            }
-        }))
+        fieldRef.forEach(item => item.addEventListener('click', (event: Event) => flipCard(event)))
+    }
+}
+function removeEventListener_flipCard(): void {
+    const fieldRef = document.querySelectorAll('.game__field__article') as NodeListOf<HTMLElement>;
+    if (fieldRef) {
+        fieldRef.forEach(item => item.removeEventListener('click', flipCard))
     }
 }
 
+function flipCard(event:Event):void{
+    if (cardsFlipped >= 2) return;
+    const card = (event.target as HTMLElement).closest('.game__field__card') as HTMLButtonElement;
+    if (!card || card.classList.contains('is-flipped')) return;
+    card.classList.toggle('is-flipped'); 
+    
+    console.log(cardsArr);
+
+    cardsFlipped++    
+    openCardElements.push(card);
+    
+    console.log(cardsFlipped);
+    console.log(openCardElements);
+    
+    if (cardsFlipped == 2) {
+        let id1 = openCardElements[0].dataset.id;
+        let id2 = openCardElements[1].dataset.id;
+
+        if (id1 == id2) {
+            (selectedPlayer == 1) ? player1Count += 1 : player2Count += 1;
+            console.log('ist gleich');
+            setTimeout(()=>{
+                openCardElements.forEach(item => item.classList.toggle('is-matching'));
+                cardsFlipped = 0;
+                openCardElements = [];
+                if (selectedPlayer == 1) {
+                    document.getElementById('gamePlayer1Count').innerText = player1Count 
+                } else {
+                    document.getElementById('gamePlayer2Count').innerText = player2Count
+                }
+            }, 125)
+        } else {
+            console.log('NOT the same');
+            setTimeout(() => {
+                openCardElements.forEach(item => item.classList.toggle('is-flipped'));
+                
+                cardsFlipped = 0;
+                openCardElements = [];
+                (selectedPlayer == 1) ? selectedPlayer = 2 : selectedPlayer = 1;
+                updateImgSrc(`${selectedPlayer}`, 'gameImgPlayerCurrent')
+                console.log(cardsFlipped);
+                console.log(openCardElements);
+            }, 2000);
+        }
+        
+        // nextRound...
+    }
+
+    
+}
+
+
+    //    count THIS player score +1 
+    //    continoue this player.
+    //    save (somehow?)
+    // } else { 
+    //    card.classList.toggle('is-flipped')
+    //    next player
+    // }
