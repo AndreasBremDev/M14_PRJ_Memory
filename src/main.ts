@@ -202,57 +202,36 @@ function flipCard(event:Event):void{
     const card = (event.target as HTMLElement).closest('.game__field__card') as HTMLButtonElement;
     if (!card || card.classList.contains('is-flipped')) return;
     card.classList.toggle('is-flipped'); 
-    
-    console.log(cardsArr);
-
     cardsFlipped++    
     openCardElements.push(card);
-    
-    console.log(cardsFlipped);
-    console.log(openCardElements);
-    
     if (cardsFlipped == 2) {
         let id1 = openCardElements[0].dataset.id;
         let id2 = openCardElements[1].dataset.id;
 
         if (id1 == id2) {
             (selectedPlayer == 1) ? player1Count += 1 : player2Count += 1;
-            console.log('ist gleich');
             setTimeout(()=>{
+                let gamePlayer1Count = document.getElementById('gamePlayer1Count') as HTMLElement;
+                let gamePlayer2Count = document.getElementById('gamePlayer2Count') as HTMLElement;
                 openCardElements.forEach(item => item.classList.toggle('is-matching'));
                 cardsFlipped = 0;
                 openCardElements = [];
                 if (selectedPlayer == 1) {
-                    document.getElementById('gamePlayer1Count').innerText = player1Count 
+                    gamePlayer1Count.innerText = player1Count.toString();
                 } else {
-                    document.getElementById('gamePlayer2Count').innerText = player2Count
+                    gamePlayer2Count.innerText = player2Count.toString();
                 }
             }, 125)
         } else {
-            console.log('NOT the same');
             setTimeout(() => {
                 openCardElements.forEach(item => item.classList.toggle('is-flipped'));
-                
                 cardsFlipped = 0;
                 openCardElements = [];
                 (selectedPlayer == 1) ? selectedPlayer = 2 : selectedPlayer = 1;
                 updateImgSrc(`${selectedPlayer}`, 'gameImgPlayerCurrent')
-                console.log(cardsFlipped);
-                console.log(openCardElements);
             }, 2000);
         }
-        
-        // nextRound...
     }
-
-    
 }
 
-
-    //    count THIS player score +1 
-    //    continoue this player.
-    //    save (somehow?)
-    // } else { 
-    //    card.classList.toggle('is-flipped')
-    //    next player
-    // }
+// 

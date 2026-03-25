@@ -111,14 +111,32 @@
 
 @media (max-width: 562px) {
 
-    .game__field__card {
-        height: 75px;
-    }
-
     .game {
 
         &__field {
             grid-template-columns: repeat(4, 75px);
+
+            &__card {
+                height: 75px;
+
+                &.is-matching {
+                    outline: 3px solid hsla(169, 62%, 57%, 1);
+                    border-radius: 10px;
+                    box-shadow: 3px 3px 5px hsla(169, 62%, 57%, 1);
+                }
+
+                &__face {
+                    border-radius: 10px;
+                }
+
+                &__face>img {
+                    height: 80%;
+                    width: 80%;
+                    
+                }
+            }
+
+
         }
     }
 }
@@ -128,10 +146,6 @@
     .game__field__card {
         height: 50px;
 
-        &__face > img {
-            width: 45px;
-            
-        }
     }
 
     .game {
