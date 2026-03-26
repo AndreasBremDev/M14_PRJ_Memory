@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <section class="screen-title" style="display: flex;">
+    <section class="screen-title" style="display: none;">
         <article class="wrapper">
             <h1 class="sr-only">Memory Game</h1>
             <div class="title__heading">
@@ -184,7 +184,7 @@
         </article>
     </section>
     <main data-theme="theme1">
-        <section class="screen-game" style="display: none;">
+        <section class="screen-game" style="display: flex;">
             <div class="wrapper pd-general">
                 <header class="game__header">
                     <div class="game__header__player-info">
@@ -246,36 +246,46 @@
 
         <section class="screen-win" style="display: none;">
             <div class="wrapper pd-general">
-                <div class="win__section">
-                    <img src="./assets/img/4_Win_Confetti.png" alt="winning confetti">
-                    <h2>You WIN</h2>
-                    <article class="win__top">
-                        <div class="game__header__player-info">
-                            <img id="gameImgPlayer1" src="./assets/img/3_theme1_player_1.svg" alt="Player blue icon">
-                            <span id="gamePlayer1Count" class="game__header__player-info--blue">0</span>
-                            <img id="gameImgPlayer2" src="./assets/img/3_theme1_player_2.svg" alt="Player orange icon">
-                            <span id="gamePlayer2Count" class="game__header__player-info--orange">0</span>
-                        </div>
-
-                    </article>
-                </div>
+                <article class="win__section">
+                    <img class="win__confetti" src="./assets/img/4_Win_Confetti.png" alt="winning confetti">
+                    <h2 class="win__h2">You WIN</h2>
+                    <img id="winningPlayerImg" class="win__player-img" src="./assets/img/4_theme1_win_2.svg"
+                        alt="Winning player icon">
+                    <h3 id="winPlayerText" class="win__h3 color-player2">ORANGE PLAYER</h3>
+                    <div class="win__score">
+                        <img id="winImgPlayer1" src="./assets/img/3_theme1_player_1.svg" alt="Player blue icon">
+                        <span id="winPlayer1Count" class="game__header__player-info--blue">0</span>
+                        <p>:</p>
+                        <span id="winPlayer2Count" class="game__header__player-info--orange">0</span>
+                        <img id="winImgPlayer2" src="./assets/img/3_theme1_player_2.svg" alt="Player orange icon"
+                            style="transform: scale(-1);">
+                    </div>
+                    <button class="win__restart-btn m-b-64">
+                        Back to start
+                    </button>
+                </article>
             </div>
         </section>
 
         <section class="screen-lose" style="display: none;">
             <div class="wrapper pd-general">
-                <h2>You lose</h2>
-                <div class="lose__section">
-                    <article class="win__top">
-                        <div class="game__header__player-info">
-                            <img id="gameImgPlayer1" src="./assets/img/3_theme1_player_1.svg" alt="Player blue icon">
-                            <span id="gamePlayer1Count" class="game__header__player-info--blue">0</span>
-                            <img id="gameImgPlayer2" src="./assets/img/3_theme1_player_2.svg" alt="Player orange icon">
-                            <span id="gamePlayer2Count" class="game__header__player-info--orange">0</span>
+                <article class="win__subsection">
+                    <div class="win__section">
+                        <h2 class="win__h2">You LOSE</h2>
+                        <p class="win__p">Final score</p>
+                        <div class="win__score">
+                            <img id="loseImgPlayer1" src="./assets/img/3_theme1_player_1.svg" alt="Player blue icon">
+                            <span id="losePlayer1Count" class="game__header__player-info--blue">0</span>
+                            <p>:</p>
+                            <span id="losePlayer2Count" class="game__header__player-info--orange">0</span>
+                            <img id="loseImgPlayer2" src="./assets/img/3_theme1_player_2.svg" alt="Player orange icon"
+                                style="transform: scale(-1);">
                         </div>
-
-                    </article>
-                </div>
+                        <button class="win__restart-btn m-b-64 m-t-64">
+                            Back to start
+                        </button>
+                    </div>
+                </article>
             </div>
         </section>
 

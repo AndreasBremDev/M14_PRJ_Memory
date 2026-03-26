@@ -5,9 +5,9 @@ let settingIsChecked: (0 | 1)[] = [0, 0, 0];
 let themeId: number = 1;
 let startPlayer: number = 1;
 let selectedPlayer: number = 1;
-let selectedCards: number = 6;
+let selectedCards: number = 4;
 let cardsArr: number[] = [];
-let cardsFlipped:number = 0;
+let cardsFlipped: number = 0;
 let openCardElements: HTMLElement[] = [];
 let player1Count: number = 0;
 let player2Count: number = 0;
@@ -31,8 +31,6 @@ function registerEventListener_TitlePageStartBtn(): void {
 
 function showSection(sectionNr: number): void {
     let htmlSection = document.querySelectorAll('body > section, body > main > section') as NodeListOf<HTMLElement>;
-    console.log(htmlSection);
-    
     htmlSection.forEach(elem => elem.style.display = 'none');
     htmlSection[sectionNr].style.display = 'flex';
 }
@@ -67,14 +65,14 @@ function actionBasedOnSelection_SectionSetting(sourceIdNr: string, sourceIdName:
 
 function actionBasedOnSelection_theme(sourceIdNr: string) {
     themeId = parseInt(sourceIdNr);
-    updateImgSrc(sourceIdNr, 'settingThemeExample');
+    updateImgPlayerSrc(sourceIdNr, 'settingThemeExample');
     applyThemeToSectionScreenGame('theme' + sourceIdNr);
     settingIsChecked[0] = 1;
 }
 
 function actionBasedOnSelection_player(sourceIdNr: string) {
     selectedPlayer = startPlayer = parseInt(sourceIdNr);
-    updateImgSrc(sourceIdNr, 'gameImgPlayerCurrent');
+    updateImgPlayerSrc(sourceIdNr, 'gameImgPlayerCurrent');
     settingIsChecked[1] = 1;
 }
 
@@ -105,9 +103,15 @@ function setText_SectionSetting(event: Event, sourceIdName: string): void {
     targetElem.innerText = sourceValue;
 }
 
-function updateImgSrc(sourceIdNr: string, HtmlElem: string): void {
-    let targetElem = document.getElementById(HtmlElem) as HTMLImageElement;
-    targetElem.src = targetElem.src.slice(0, -5) + sourceIdNr + targetElem.src.slice(-4, targetElem.src.length);
+function updateImgPlayerSrc(sourceIdNr: string, htmlElem: string): void {
+    let targetElem = document.getElementById(htmlElem) as HTMLImageElement;
+    if (htmlElem == 'settingThemeExample') {
+        targetElem.src = targetElem.src.slice(0, -5) + sourceIdNr + targetElem.src.slice(-4, targetElem.src.length);
+    } else if (htmlElem == 'winningPlayerImg') {
+        targetElem.src = `./assets/img/4_theme${themeId}_win_${sourceIdNr}.svg`;
+    } else {
+        targetElem.src = `./assets/img/3_theme${themeId}_player_${sourceIdNr}.svg`;
+    }
 }
 
 function applyThemeToSectionScreenGame(themeName: string): void {
@@ -148,6 +152,8 @@ function startGame() {
         setCardsArray(selectedCards)
         shuffleArray(cardsArr);
         renderCards(cardsArr);
+        updateImgPlayerSrc('1', 'gameImgPlayer1')
+        updateImgPlayerSrc('2', 'gameImgPlayer2')
         registerEventListener_flipCard();
     }
 }
@@ -157,6 +163,8 @@ function intermediate() {
     setCardsArray(selectedCards)
     shuffleArray(cardsArr);
     renderCards(cardsArr);
+    updateImgPlayerSrc('1', 'gameImgPlayer1')
+    updateImgPlayerSrc('2', 'gameImgPlayer2')
     registerEventListener_flipCard();
 }
 
@@ -194,11 +202,11 @@ function registerEventListener_flipCard(): void {
     }
 }
 
-function flipCard(event:Event):void{
+function flipCard(event: Event): void {
     if (cardsFlipped >= 2) return;
     const card = (event.target as HTMLElement).closest('.game__field__card') as HTMLButtonElement;
     if (!card || card.classList.contains('is-flipped')) return;
-    card.classList.toggle('is-flipped'); 
+    card.classList.toggle('is-flipped');
     cardsFlipped++;
     openCardElements.push(card);
     if (cardsFlipped == 2) {
@@ -207,7 +215,7 @@ function flipCard(event:Event):void{
 
         if (id1 == id2) {
             (selectedPlayer == 1) ? player1Count += 1 : player2Count += 1;
-            setTimeout(()=>{
+            setTimeout(() => {
                 let gamePlayer1Count = document.getElementById('gamePlayer1Count') as HTMLElement;
                 let gamePlayer2Count = document.getElementById('gamePlayer2Count') as HTMLElement;
                 openCardElements.forEach(item => item.classList.toggle('is-matching'));
@@ -226,44 +234,74 @@ function flipCard(event:Event):void{
                 cardsFlipped = 0;
                 openCardElements = [];
                 (selectedPlayer == 1) ? selectedPlayer = 2 : selectedPlayer = 1;
-                updateImgSrc(`${selectedPlayer}`, 'gameImgPlayerCurrent')
+                updateImgPlayerSrc(`${selectedPlayer}`, 'gameImgPlayerCurrent')
             }, 1500);
         }
     }
 
 }
 
-function checkGameEnd(){
+function checkGameEnd() {
     if (checkAllCardsTurned()) {
-        
+        registerEventListener_restartBtn()
         if (checkStartPlayerWins()) {
-            // You Win
-            console.log(`WIN: (startplayer ${startPlayer}) player1Count ${player1Count}, player2Count ${player2Count}`);
+            updateImgPlayerSrc(`${startPlayer}`, 'winningPlayerImg')
+            updateImgPlayerSrc('1', 'winImgPlayer1')
+            updateImgPlayerSrc('2', 'winImgPlayer2')
+            showSection(3);
+            updateWinPlayerText()
             // Note image/text/color according to startPlayer
+            console.log(`WIN: (startplayer ${startPlayer}) player1Count ${player1Count}, player2Count ${player2Count}`);
         } else if (checkStartPlayerLose()) {
-            // You Lose (or GameOver)
+            updateImgPlayerSrc('1', 'loseImgPlayer1')
+            updateImgPlayerSrc('2', 'loseImgPlayer2')
+            showSection(4);
             console.log(`LOSE: (startplayer ${startPlayer}) player1Count ${player1Count}, player2Count ${player2Count}`);
         } else if (player1Count === player2Count) {
             //draw
             console.log(`DRAW: player1Count ${player1Count} = player2Count ${player2Count}`);
-            
+
         } else {
             // fall back (i.e. manipulation of playerCounts)
         }
-        setTimeout(()=>{
+        setTimeout(() => {
 
-        },1500)
+        }, 1500)
     }
 }
 
-function checkAllCardsTurned(){
+function registerEventListener_restartBtn(): void {
+    const restartBtn = document.querySelectorAll('.win__restart-btn') as NodeListOf<HTMLButtonElement>;
+    if (restartBtn) {
+        restartBtn.forEach(item => item.addEventListener('click', () => restartGame()))
+    }
+}
+
+function updateWinPlayerText() {
+    const winPlayerTextRef = document.getElementById('winPlayerText') as HTMLElement;
+    if (winPlayerTextRef) {
+        winPlayerTextRef.classList.add(`color-player${startPlayer}`)
+        winPlayerTextRef.innerHTML = startPlayer == 1 ? "BLUE PLAYER" : "ORANGE PLAYER";
+    }
+}
+
+function checkAllCardsTurned() {
     return player1Count + player2Count == selectedCards / 2
 }
 
-function checkStartPlayerWins(){
+function checkStartPlayerWins() {
     return (startPlayer == 1 && player1Count > player2Count) || (startPlayer == 2 && player1Count < player2Count)
 }
 
-function checkStartPlayerLose(){
+function checkStartPlayerLose() {
     return (startPlayer == 1 && player1Count < player2Count) || (startPlayer == 2 && player1Count > player2Count)
+}
+
+function restartGame() {
+    showSection(0);
+    player1Count = player2Count = 0;
+    // UPDATE innerHTML text scores (id 'gamePlayer1Count' + 'gamePlayer2Count')
+    document.getElementById('winPlayerText')?.classList.remove(`color-player${startPlayer}`);
+    let gameField = document.getElementById('gameField') as HTMLElement;
+    gameField && (gameField.innerHTML = '');
 }

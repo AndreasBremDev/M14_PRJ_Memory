@@ -5,6 +5,9 @@ $startBtn-Bg: hsl(0, 0%, 96%);
 $startBtn-Disabled-Bg: hsla(57, 7%, 85%, 1);
 $startBtn-Disabled-Text: hsla(0, 1%, 64%, 1);
 
+$player-one-color: hsla(202, 100%, 58%, 1);
+$player-two-color: hsla(27, 90%, 59%, 1);
+
 $settings-padding: clamp(8px, 3vw, 124px);
 $settings-padding-top: clamp(40px, 5vw, 114px);
 
@@ -30,7 +33,8 @@ $settings-padding-top: clamp(40px, 5vw, 114px);
 .screen-title,
 .screen-settings,
 .screen-game,
-.screen-win {
+.screen-win,
+.screen-lose {
     width: 100%;
     min-height: 100dvh;
 }
@@ -53,6 +57,10 @@ $settings-padding-top: clamp(40px, 5vw, 114px);
     padding-inline: $settings-padding;
 }
 
+main {
+    font-family: var(--font-family);
+}
+
 button {
     background-color: transparent;
     border: none;
@@ -61,6 +69,18 @@ button {
     font: inherit;
 }
 
-main {
-    font-family: var(--font-family);
+.color-player1{
+    color: $player-one-color;
+}
+
+.color-player2{
+    color: $player-two-color;
+}
+
+.m-b-64 {
+    margin-bottom: 64px;
+}
+
+.m-t-64 {
+    margin-top: 64px;
 }

@@ -2,6 +2,54 @@
 @use '../base/base_main' as base;
 @use '../themes/themes_main' as theme;
 
-.win__section {
-    @include abstr.flex-direction-align-justify-gap(column, center, flex-start);
+.win {
+    &__section {
+        @include abstr.flex-direction-align-justify-gap(column, center, flex-start, 16px);
+    }
+
+    &__subsection {
+        @include abstr.flex-direction-align-justify-gap(column, center, center);
+        height: 100dvh;
+    }
+
+    &__confetti {
+        width: 100%;
+        max-height: 200px;
+        object-fit: cover;
+    }
+
+    &__player-img {
+        height: clamp(64px, 13vw, 250px);
+        margin-block: clamp(0px, 3vw, 48px);
+    }
+
+    &__score {
+        @include abstr.flex-direction-align-justify-gap(row, center, center, 8px);
+        padding: 17px 20px;
+    }
+
+    &__h2 {
+        font-size: clamp(64px, 6.6vw, 128px);
+        font-weight: 700;
+    }
+
+    &__h3 {
+        font-size: clamp(32px, 3.3vw, 64px);
+        font-weight: 700;
+    }
+
+    &__p{
+        font-size: abstr.px-to-rem(26);
+    }
+
+    &__restart-btn {
+        @include abstr.flex-direction-align-justify-gap(row, center, center, 8px);
+        font-size: abstr.px-to-rem(24);
+        font-weight: 700;
+        color: var(--font-color);
+        min-height: abstr.px-to-rem(64);
+        padding: 16px 24px;
+        background-color: var(--btn_exit_bg-unselect);
+        border: 1px solid var(--main-theme-color);
+    }
 }

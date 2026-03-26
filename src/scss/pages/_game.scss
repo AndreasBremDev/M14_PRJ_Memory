@@ -2,9 +2,6 @@
 @use '../base/base_main' as base;
 @use '../themes/themes_main' as theme;
 
-// .screen-game {
-//     font-family: 'Red Rose', sans-serif;
-// }
 
 .game {
     &__header {
@@ -20,14 +17,18 @@
             padding: 17px 20px;
             max-height: abstr.px-to-rem(64);
 
-            &--blue {
-                color: #2BB1FF;
+            &--blue,
+            &--orange {
                 width: abstr.px-to-rem(32);
+                text-align: center;
+            }
+
+            &--blue {
+                color: base.$player-one-color;
             }
 
             &--orange {
-                color: #F58E39;
-                width: abstr.px-to-rem(32);
+                color: base.$player-two-color;
             }
         }
 
@@ -40,14 +41,15 @@
             @include abstr.flex-direction-align-justify-gap(row, center, center, 8px);
             font-size: abstr.px-to-rem(24);
             font-weight: 700;
-            color: base.$text;
+            color: var(--font-color);
             min-height: abstr.px-to-rem(64);
             padding: 16px 24px;
-            background-color: var(--btn_exit_bg-unselect) ; // hsla(169, 69%, 72%, 0.14) need update, according to Theme-Choice
+            background-color: var(--btn_exit_bg-unselect);
+            border: 1px solid var(--main-theme-color);
         }
     }
 
-    &__field{
+    &__field {
         display: grid;
         grid-template-columns: repeat(4, 120px); // need update, according to choice (16 -> 4 (x4)/ 24 -> 6 (x4) / 36 -> 6 (x6))
         place-items: center;

@@ -132,7 +132,7 @@
                 &__face>img {
                     height: 80%;
                     width: 80%;
-                    
+
                 }
             }
 
@@ -152,6 +152,12 @@
 
         &__field {
             grid-template-columns: repeat(4, 50px);
+        }
+    }
+    
+    .win {
+        &__h2 {
+            text-align: center;
         }
     }
 }
