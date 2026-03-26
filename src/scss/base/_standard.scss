@@ -8,6 +8,7 @@ $startBtn-Disabled-Text: hsla(0, 1%, 64%, 1);
 $settings-padding: clamp(8px, 3vw, 124px);
 $settings-padding-top: clamp(40px, 5vw, 114px);
 
+
 .sr-only {
     position: absolute;
     width: 1px;
@@ -20,14 +21,25 @@ $settings-padding-top: clamp(40px, 5vw, 114px);
     border: 0;
 }
 
+.screen-title,
+.screen-settings{
+    background-color: $background;
+    color: $text;
+}
 
 .screen-title,
 .screen-settings,
-.screen-game {
+.screen-game,
+.screen-win {
     width: 100%;
     min-height: 100dvh;
-    background-color: $background;
-    color: $text;
+}
+
+.screen-game,
+.screen-win,
+.screen-lose {
+    background-color: var(--background);
+    color: var(--font-color)
 }
 
 .wrapper {
@@ -37,10 +49,18 @@ $settings-padding-top: clamp(40px, 5vw, 114px);
     position: relative;
 }
 
+.pd-general {
+    padding-inline: $settings-padding;
+}
+
 button {
     background-color: transparent;
     border: none;
     padding: 0;
     cursor: pointer;
     font: inherit;
+}
+
+main {
+    font-family: var(--font-family);
 }

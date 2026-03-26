@@ -1,0 +1,7 @@
+@use '../abstract/abstract_main' as abstr;
+@use '../base/base_main' as base;
+@use '../themes/themes_main' as theme;
+
+.win__section {
+    @include abstr.flex-direction-align-justify-gap(column, center, flex-start);
+}

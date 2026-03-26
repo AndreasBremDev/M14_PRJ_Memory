@@ -2,9 +2,10 @@ import './scss/main.scss';
 import { renderCardsHTML } from './template';
 
 let settingIsChecked: (0 | 1)[] = [0, 0, 0];
-let selectedTheme: string = 'theme1';
+let themeId: number = 1;
+let startPlayer: number = 1;
 let selectedPlayer: number = 1;
-let selectedCards: number = 16;
+let selectedCards: number = 6;
 let cardsArr: number[] = [];
 let cardsFlipped:number = 0;
 let openCardElements: HTMLElement[] = [];
@@ -15,7 +16,7 @@ let player2Count: number = 0;
 init();
 
 function init() {
-    applyThemeToSectionScreenGame(selectedTheme);
+    applyThemeToSectionScreenGame('theme' + themeId);
     registerEventListener_TitlePageStartBtn();
     registerEventListener_SectionSetting();
     registerEventListener_SectionSetting_StartGame();
@@ -29,9 +30,11 @@ function registerEventListener_TitlePageStartBtn(): void {
 }
 
 function showSection(sectionNr: number): void {
-    let test = document.querySelectorAll('body > section') as NodeListOf<HTMLElement>;
-    test.forEach(elem => elem.style.display = 'none');
-    test[sectionNr].style.display = 'flex';
+    let htmlSection = document.querySelectorAll('body > section, body > main > section') as NodeListOf<HTMLElement>;
+    console.log(htmlSection);
+    
+    htmlSection.forEach(elem => elem.style.display = 'none');
+    htmlSection[sectionNr].style.display = 'flex';
 }
 
 function registerEventListener_SectionSetting(): void {
@@ -63,14 +66,14 @@ function actionBasedOnSelection_SectionSetting(sourceIdNr: string, sourceIdName:
 }
 
 function actionBasedOnSelection_theme(sourceIdNr: string) {
-    selectedTheme = `theme${sourceIdNr}`;
+    themeId = parseInt(sourceIdNr);
     updateImgSrc(sourceIdNr, 'settingThemeExample');
-    applyThemeToSectionScreenGame(selectedTheme);
+    applyThemeToSectionScreenGame('theme' + sourceIdNr);
     settingIsChecked[0] = 1;
 }
 
 function actionBasedOnSelection_player(sourceIdNr: string) {
-    selectedPlayer = parseInt(sourceIdNr);
+    selectedPlayer = startPlayer = parseInt(sourceIdNr);
     updateImgSrc(sourceIdNr, 'gameImgPlayerCurrent');
     settingIsChecked[1] = 1;
 }
@@ -108,9 +111,9 @@ function updateImgSrc(sourceIdNr: string, HtmlElem: string): void {
 }
 
 function applyThemeToSectionScreenGame(themeName: string): void {
-    const sectionScreenGame = document.querySelector('.screen-game') as HTMLElement | null;
-    if (sectionScreenGame) {
-        sectionScreenGame.dataset.theme = themeName;
+    const mainHtmlTag = document.querySelector('main') as HTMLElement | null;
+    if (mainHtmlTag) {
+        mainHtmlTag.dataset.theme = themeName;
     }
 
 }
@@ -163,7 +166,7 @@ function renderCards(arr: number[]) {
         gameField.innerHTML = '';
         if (arr.length === 0) return;
         for (let i = 0; i < arr.length; i++) {
-            gameField.innerHTML += renderCardsHTML(arr[i]);
+            gameField.innerHTML += renderCardsHTML(arr[i], themeId);
         }
     }
 }
@@ -190,19 +193,13 @@ function registerEventListener_flipCard(): void {
         fieldRef.forEach(item => item.addEventListener('click', (event: Event) => flipCard(event)))
     }
 }
-function removeEventListener_flipCard(): void {
-    const fieldRef = document.querySelectorAll('.game__field__article') as NodeListOf<HTMLElement>;
-    if (fieldRef) {
-        fieldRef.forEach(item => item.removeEventListener('click', flipCard))
-    }
-}
 
 function flipCard(event:Event):void{
     if (cardsFlipped >= 2) return;
     const card = (event.target as HTMLElement).closest('.game__field__card') as HTMLButtonElement;
     if (!card || card.classList.contains('is-flipped')) return;
     card.classList.toggle('is-flipped'); 
-    cardsFlipped++    
+    cardsFlipped++;
     openCardElements.push(card);
     if (cardsFlipped == 2) {
         let id1 = openCardElements[0].dataset.id;
@@ -221,6 +218,7 @@ function flipCard(event:Event):void{
                 } else {
                     gamePlayer2Count.innerText = player2Count.toString();
                 }
+                checkGameEnd();
             }, 125)
         } else {
             setTimeout(() => {
@@ -229,9 +227,43 @@ function flipCard(event:Event):void{
                 openCardElements = [];
                 (selectedPlayer == 1) ? selectedPlayer = 2 : selectedPlayer = 1;
                 updateImgSrc(`${selectedPlayer}`, 'gameImgPlayerCurrent')
-            }, 2000);
+            }, 1500);
         }
+    }
+
+}
+
+function checkGameEnd(){
+    if (checkAllCardsTurned()) {
+        
+        if (checkStartPlayerWins()) {
+            // You Win
+            console.log(`WIN: (startplayer ${startPlayer}) player1Count ${player1Count}, player2Count ${player2Count}`);
+            // Note image/text/color according to startPlayer
+        } else if (checkStartPlayerLose()) {
+            // You Lose (or GameOver)
+            console.log(`LOSE: (startplayer ${startPlayer}) player1Count ${player1Count}, player2Count ${player2Count}`);
+        } else if (player1Count === player2Count) {
+            //draw
+            console.log(`DRAW: player1Count ${player1Count} = player2Count ${player2Count}`);
+            
+        } else {
+            // fall back (i.e. manipulation of playerCounts)
+        }
+        setTimeout(()=>{
+
+        },1500)
     }
 }
 
-// 
+function checkAllCardsTurned(){
+    return player1Count + player2Count == selectedCards / 2
+}
+
+function checkStartPlayerWins(){
+    return (startPlayer == 1 && player1Count > player2Count) || (startPlayer == 2 && player1Count < player2Count)
+}
+
+function checkStartPlayerLose(){
+    return (startPlayer == 1 && player1Count < player2Count) || (startPlayer == 2 && player1Count > player2Count)
+}

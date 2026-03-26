@@ -3,40 +3,6 @@
 @use '../themes/themes_main' as theme;
 
 
-
-// .card {
-//     background-color: #333;
-
-//     // @include respond(zero, small){
-//     //     font-size: fn.px-to-rem(10);
-//     // };
-//     // @include respond(small, medium){
-//     //     font-size: fn.px-to-rem(16);
-//     // };
-//     // @include respond(medium, large){
-//     //     font-size: fn.px-to-rem(32);
-//     // };
-
-//     // @include mx.flex-col-center;
-//     // @include mx.fade-in(1s);
-
-//     &__title {
-//         color: green;
-//     }
-
-//     &__text {
-//         color: white;
-
-//         &--highlight{
-//             color: red
-//         }
-//     }
-
-//     &:hover{
-//         background-color: rgba(0,0,0,0.5);
-//     }
-// }
-
 .game__field__card {
     height: 120px;
     aspect-ratio: 1 / 1;
@@ -56,14 +22,14 @@
     &__face{
         position: absolute;
         inset: 0;
-        background: linear-gradient(45deg, hsla(169, 47%, 37%, 1), hsla(169, 62%, 57%, 1));
+        background: linear-gradient(45deg, var(--card-front-from), var(--main-theme-color)); // linear-gradient(45deg, hsla(169, 47%, 37%, 1), hsla(169, 62%, 57%, 1))
         backface-visibility: hidden;
         border-radius: 15px;
         @include abstr.flex-direction-align-justify-gap(row, center, center, 8px);
 
         &--back{
             transform: rotateY(180deg);
-            background: hsla(164, 31%, 93%, 1);
+            background: var(--card-back);
             @include abstr.flex-direction-align-justify-gap(row, center, center, 8px);
         }
     }
@@ -71,8 +37,8 @@
         transform: rotateY(180deg);
     }
     &.is-matching{
-        outline: 5px solid hsla(169, 62%, 57%, 1);
+        outline: 5px solid var(--main-theme-color);
         border-radius: 15px;
-        box-shadow: 6px 6px 8px hsla(169, 62%, 57%, 1);
+        box-shadow: 6px 6px 8px var(--main-theme-color);
     }
 }

@@ -1,4 +1,5 @@
-.screen-game[data-theme="theme1"]{
+main[data-theme="theme1"]{
+    --font-family: 'Red Rose', sans-serif;
     --background: hsla(180, 1%, 19%, 1);
     --font-color: hsla(0, 0%, 100%, 1);
     --main-theme-color: hsla(169, 62%, 57%, 1);
@@ -11,24 +12,27 @@
     --btn_popup_back_border-active:hsla(169, 53%, 48%, 1);
     --btn_popup_exit_bg: hsla(169, 69%, 72%, 0.14);
 }
-// --card-front-to:hsla(169, 62%, 57%, 1);
-// --card-match: hsla(169, 62%, 57%, 1)
-// --card-border:hsla(169, 62%, 57%, 1);
-// --exit-border: hsla(169, 62%, 57%, 1)
-// --btn_popup_exit_border: hsla(169, 62%, 57%, 1);
+// --card-front-to:hsla(169, 62%, 57%, 1);   // main-theme-color
+// --card-match: hsla(169, 62%, 57%, 1)      // main-theme-color
+// --card-border:hsla(169, 62%, 57%, 1);     // main-theme-color
+// --exit-border: hsla(169, 62%, 57%, 1)     // main-theme-color
+// --btn_popup_exit_border: hsla(169, 62%, 57%, 1); // main-theme-color
 
-// .screen-game [data-theme='theme2'] {
-// --background: hala(230, 32%, 15%, 1);
-// -font-colors hela(218, 40%, 90%, 1);
-// main-theme-color: Ohsta(348, 85%, 63%, 1);
-// -card-backs ☐ hsla(228, 31%, 24%, 1);
-// -card-front-from Ohsla(348, 71%, 44%, 1);
-// bts_exit by-select: Ohsla(348, 85%, 63%, 0.14);
-// btn_exit.bg-selected: Ohsla(348, 85%, 63%, 0.25);
-// -bitno popup backs hsla(348, 85%, 63%, 1);
-// -btn_popup back bgt hala(348, 85%, 63%, 0.7);
-// -tite_popup hack boriler-active: Ohsla (348, 78%, 52%, 2);
-// btn_popup_exit hgs Ohsta(348, 85%, 63%, 0.14);
+main[data-theme='theme2'] {
+    // --font-family: 'Red Rose', sans-serif;
+    --background: hsla(199, 40%, 27%, 1);
+    --font-color: hsla(218, 40%, 90%, 1);
+    --main-theme-color: hsla(334, 80%, 51%, 1);
+    --card-back: hsla(336, 22%, 95%, 1);
+    --card-front-from: hsla(313, 41%, 24%, 1);
+    --btn_exit_bg-unselect: hsla(334, 85%, 52%, 0.14);
+    --btn_exit_bg-selected: hsla(334, 85%, 52%, 0.26);
+    --btn_popup_back: hsla(334, 85%, 52%, 1);
+    --btn_popup_back_bg: hsla(334, 61%, 86%, 0.08);
+    --btn_popup_back_border-active:hsla(345, 81%, 51%, 1);
+    --btn_popup_exit_bg: hsla(334, 85%, 52%, 0.08);
+}
+
 // screen-game[data-theme='theme3') {
 // --background: hsla(214, 47%, 18%, 1);
 // -font-colars nsla (204, 33%, 97%, 1);
@@ -41,6 +45,7 @@
 // back bg: hsia(44, 89%, 614, 0.7);
 // -btn popup back_border-active: Chsla(40, 86%, 48%, 1);
 // -btn_popup exit bột hala(44, 89%, 61%, 0.14);
+
 // screen-game[data-theme="theme4') {
 // --background: Ohsla(18, 42%, 17%, 1);
 // Marshsla(42, 60%, 96%, 1);
