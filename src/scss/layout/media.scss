@@ -101,6 +101,12 @@
         &__header {
             @include abstr.flex-direction-align-justify-gap(column-reverse, center, center, 8px);
             margin-top: clamp(16px, 3vw, 40px);
+
+            &__exit {
+                &__popover {
+                    position-area: bottom span-all;
+                }
+            }
         }
 
         &__field {
@@ -132,11 +138,23 @@
                 &__face>img {
                     height: 80%;
                     width: 80%;
-
                 }
             }
+        }
 
+        &__header {
+            &__exit {
+                &__popover {
+                    &>div {
+                        @include abstr.flex-direction-align-justify-gap(column, center, center, 8px);
+                    }
 
+                    &__cancel,
+                    &__action {
+                        width: 250px;
+                    }
+                }
+            }
         }
     }
 }
@@ -154,7 +172,7 @@
             grid-template-columns: repeat(4, 50px);
         }
     }
-    
+
     .win {
         &__h2 {
             text-align: center;

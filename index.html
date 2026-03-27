@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <section class="screen-title" style="display: none;">
+    <section class="screen-title" style="display: flex;">
         <article class="wrapper">
             <h1 class="sr-only">Memory Game</h1>
             <div class="title__heading">
@@ -42,7 +42,7 @@
         </svg>
     </section>
 
-    <section class="screen-settings" style="display: none;">
+    <section class="screen-settings" style="display: flex;">
         <article class="wrapper pd-general">
             <h2 class="settings__h2">Settings</h2>
             <div class="settings__underline" aria-hidden="true">
@@ -134,6 +134,10 @@
                         </h3>
                         <div class="settings__box">
                             <div class="settings__box__input">
+                                <input type="radio" id="board0" name="board" value="Board 4 cards">
+                                <label for="board0">4 cards (DA testing purpose)</label>
+                            </div>
+                            <div class="settings__box__input">
                                 <input type="radio" id="board1" name="board" value="Board 16 cards">
                                 <label for="board1">16 cards</label>
                             </div>
@@ -201,7 +205,8 @@
                         </span>
                     </div>
                     <div>
-                        <button class="game__header__exit">
+                        <button id="exitGameBtn" class="game__header__exit" popovertarget="exitGamePopover"
+                            aria-haspopup="dialog" aria-controls="exitGamePopover">
                             <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <mask id="mask0_2117_2162" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0"
@@ -235,6 +240,14 @@
                             </svg>
                             Exit game
                         </button>
+                        <div id="exitGamePopover" popover="auto" class="game__header__exit__popover" 
+                            role="dialog" aria-labelledby="exitGameBtn">
+                            Are you sure you want to quit the game?
+                            <div>
+                                <button id="exitGamePopoverCancel" class="game__header__exit__popover__cancel">NO, back to game</button>
+                                <button id="exitGamePopoverAction" class="game__header__exit__popover__action">YES, quit game</button>
+                            </div>
+                        </div>
                     </div>
                 </header>
                 <section id="gameField" class="game__field">
@@ -244,7 +257,7 @@
             </div>
         </section>
 
-        <section class="screen-win" style="display: none;">
+        <section class="screen-win" style="display: flex;">
             <div class="wrapper pd-general">
                 <article class="win__section">
                     <img class="win__confetti" src="./assets/img/4_Win_Confetti.png" alt="winning confetti">
@@ -261,13 +274,13 @@
                             style="transform: scale(-1);">
                     </div>
                     <button class="win__restart-btn m-b-64">
-                        Back to start
+                        Back to home
                     </button>
                 </article>
             </div>
         </section>
 
-        <section class="screen-lose" style="display: none;">
+        <section class="screen-lose" style="display: flex;">
             <div class="wrapper pd-general">
                 <article class="win__subsection">
                     <div class="win__section">
@@ -282,7 +295,7 @@
                                 style="transform: scale(-1);">
                         </div>
                         <button class="win__restart-btn m-b-64 m-t-64">
-                            Back to start
+                            Back to home
                         </button>
                     </div>
                 </article>

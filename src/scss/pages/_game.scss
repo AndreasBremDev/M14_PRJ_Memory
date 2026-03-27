@@ -43,9 +43,67 @@
             font-weight: 700;
             color: var(--font-color);
             min-height: abstr.px-to-rem(64);
-            padding: 16px 24px;
+            padding: base.$game-exit-popover-padding;
             background-color: var(--btn_exit_bg-unselect);
             border: 1px solid var(--main-theme-color);
+            transition: 125ms ease-in;
+
+            &:active,
+            &:hover,
+            &:focus-visible {
+                background-color: var(--btn_exit_bg-selected);
+            }
+
+            &__popover {
+                margin-top: 16px;
+                position-area: bottom span-left;
+                padding: clamp(16px, 3vw, 32px);
+                font-size: clamp(24px, 3vw, 32px);
+                font-weight: 700;
+                text-wrap: balance;
+                text-align: center;
+                border: none;
+                animation: slideIn 0.3s ease-in;
+
+                &__cancel,
+                &__action {
+                    font-size: abstr.px-to-rem(20);
+                    padding: base.$game-exit-popover-padding;
+                    transition: 125ms ease-in;  
+                    
+                    &:active,
+                    &:hover,
+                    &:focus-visible {
+                        background-color: var(--btn_popup_back_bg-active);
+                        border: 2px solid var(--btn_popup_back_border-active);
+                        color: var(--font-color);
+                    }
+                }
+
+                &__cancel {
+                    background-color: var(--btn_popup_back);
+                    border: 2px solid transparent;
+                    color: var(--font-color);
+                }
+
+                &__action {
+                    background-color: var(--btn_popup_exit_bg);
+                    border: 2px solid var(--main-theme-color);
+                    color: var(--main-theme-color);
+                }
+
+                &>div {
+                    margin-top: abstr.px-to-rem(54);
+                    @include abstr.flex-direction-align-justify-gap(row, center, center, 24px);
+                }
+
+                &::backdrop {
+                    background-color: rgba(0, 0, 0, 0.1);
+                    backdrop-filter: blur(2px);
+                    pointer-events: none;
+                }
+
+            }
         }
     }
 
@@ -57,5 +115,17 @@
         justify-content: center;
         margin-top: base.$settings-padding-top;
         flex-wrap: wrap;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0px);
+        opacity: 1;
     }
 }

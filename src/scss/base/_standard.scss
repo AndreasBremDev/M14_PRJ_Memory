@@ -11,6 +11,7 @@ $player-two-color: hsla(27, 90%, 59%, 1);
 $settings-padding: clamp(8px, 3vw, 124px);
 $settings-padding-top: clamp(40px, 5vw, 114px);
 
+$game-exit-popover-padding: 16px 24px;
 
 .sr-only {
     position: absolute;
@@ -67,6 +68,11 @@ button {
     padding: 0;
     cursor: pointer;
     font: inherit;
+    color: inherit;
+}
+:popover-open {
+    border: none;
+    outline: none;
 }
 
 .color-player1{

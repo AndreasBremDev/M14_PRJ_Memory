@@ -9,17 +9,17 @@
     background-color: transparent;
     border: none;
     outline: none;
-    
-    &__inner{
+
+    &__inner {
         position: relative;
         width: 100%;
         height: 100%;
         transform-style: preserve-3d;
         transition: all 300ms ease-in-out;
-        
+
     }
-    
-    &__face{
+
+    &__face {
         position: absolute;
         inset: 0;
         background: linear-gradient(45deg, var(--card-front-from), var(--main-theme-color)); // linear-gradient(45deg, hsla(169, 47%, 37%, 1), hsla(169, 62%, 57%, 1))
@@ -27,18 +27,24 @@
         border-radius: 15px;
         @include abstr.flex-direction-align-justify-gap(row, center, center, 8px);
 
-        &--back{
+        &--back {
             transform: rotateY(180deg);
             background: var(--card-back);
             @include abstr.flex-direction-align-justify-gap(row, center, center, 8px);
         }
     }
-    &.is-flipped .game__field__card__inner{
+
+    &.is-flipped .game__field__card__inner {
         transform: rotateY(180deg);
     }
-    &.is-matching{
+
+    &.is-matching {
         outline: 5px solid var(--main-theme-color);
         border-radius: 15px;
         box-shadow: 6px 6px 8px var(--main-theme-color);
     }
+}
+
+.game__field__article:has(.game__field__card:focus-visible) {
+    outline: -webkit-focus-ring-color auto 1px;
 }

@@ -1,6 +1,11 @@
 import './scss/main.scss';
 import { renderCardsHTML } from './template';
 
+interface PlayerUpdate {
+    idRef: string;
+    htmlIdRef: string[];
+}
+
 let settingIsChecked: (0 | 1)[] = [0, 0, 0];
 let themeId: number = 1;
 let startPlayer: number = 1;
@@ -11,7 +16,16 @@ let cardsFlipped: number = 0;
 let openCardElements: HTMLElement[] = [];
 let player1Count: number = 0;
 let player2Count: number = 0;
-
+let playerUpdates: PlayerUpdate[] = [
+    { 
+        idRef: '1',
+        htmlIdRef: ['gamePlayer1Count', 'winPlayer1Count', 'losePlayer1Count']
+    },
+    {
+        idRef: '2',
+        htmlIdRef: ['gamePlayer2Count', 'winPlayer2Count', 'losePlayer2Count']
+    }
+]
 
 init();
 
@@ -20,6 +34,7 @@ function init() {
     registerEventListener_TitlePageStartBtn();
     registerEventListener_SectionSetting();
     registerEventListener_SectionSetting_StartGame();
+    registerEventListener_popoverBtn()
 }
 
 function registerEventListener_TitlePageStartBtn(): void {
@@ -27,12 +42,6 @@ function registerEventListener_TitlePageStartBtn(): void {
     if (titleBtnPlay) {
         titleBtnPlay.addEventListener('click', () => showSection(1))
     }
-}
-
-function showSection(sectionNr: number): void {
-    let htmlSection = document.querySelectorAll('body > section, body > main > section') as NodeListOf<HTMLElement>;
-    htmlSection.forEach(elem => elem.style.display = 'none');
-    htmlSection[sectionNr].style.display = 'flex';
 }
 
 function registerEventListener_SectionSetting(): void {
@@ -46,6 +55,30 @@ function registerEventListener_SectionSetting(): void {
         })
     })
 }
+
+function registerEventListener_SectionSetting_StartGame(): void {
+    let settingsStartGameBtn = document.getElementById('settingsStartGameBtn') as HTMLButtonElement;
+    if (settingsStartGameBtn) {
+        settingsStartGameBtn.addEventListener('click', startGame)
+    }
+}
+
+function registerEventListener_popoverBtn(): void {
+    const buttonRef = document.querySelectorAll('#exitGamePopoverCancel, #exitGamePopoverAction, .win__restart-btn') as NodeListOf<HTMLElement>;
+    if (buttonRef) {
+        buttonRef[0].addEventListener('click',closePopup);
+        for (let i = 1; i < buttonRef.length; i++) {
+            buttonRef[i].addEventListener('click', restartGame);
+        }
+    }
+}
+
+function showSection(sectionNr: number): void {
+    let htmlSection = document.querySelectorAll('body > section, body > main > section') as NodeListOf<HTMLElement>;
+    htmlSection.forEach(elem => elem.style.display = 'none');
+    htmlSection[sectionNr].style.display = 'flex';
+}
+
 
 function actionBasedOnSelection_SectionSetting(sourceIdNr: string, sourceIdName: string): void {
     switch (sourceIdName) {
@@ -85,7 +118,7 @@ function actionBasedOnSelection_board(sourceIdNr: string) {
     } else if (sourceIdNr === '3') {
         return selectedCards = 36;
     } else {
-        return selectedCards = 16;
+        return selectedCards = 4;
     }
 }
 
@@ -106,7 +139,7 @@ function setText_SectionSetting(event: Event, sourceIdName: string): void {
 function updateImgPlayerSrc(sourceIdNr: string, htmlElem: string): void {
     let targetElem = document.getElementById(htmlElem) as HTMLImageElement;
     if (htmlElem == 'settingThemeExample') {
-        targetElem.src = targetElem.src.slice(0, -5) + sourceIdNr + targetElem.src.slice(-4, targetElem.src.length);
+        targetElem.src = `./assets/img/2_theme_example${sourceIdNr}.png`;
     } else if (htmlElem == 'winningPlayerImg') {
         targetElem.src = `./assets/img/4_theme${themeId}_win_${sourceIdNr}.svg`;
     } else {
@@ -119,7 +152,6 @@ function applyThemeToSectionScreenGame(themeName: string): void {
     if (mainHtmlTag) {
         mainHtmlTag.dataset.theme = themeName;
     }
-
 }
 
 function settingsValidation(): void {
@@ -139,16 +171,10 @@ function toggleDisableStartGameBtn(elem: HTMLButtonElement, bool: boolean): void
     elem.setAttribute('aria-disabled', `${bool}`);
 }
 
-function registerEventListener_SectionSetting_StartGame(): void {
-    let settingsStartGameBtn = document.getElementById('settingsStartGameBtn') as HTMLButtonElement;
-    if (settingsStartGameBtn) {
-        settingsStartGameBtn.addEventListener('click', startGame)
-    }
-}
-
-function startGame() {
+function startGame(): void {
     if (settingIsChecked.every(el => el === 1)) {
         showSection(2);
+        uncheckRadioButtons();
         setCardsArray(selectedCards)
         shuffleArray(cardsArr);
         renderCards(cardsArr);
@@ -158,17 +184,17 @@ function startGame() {
     }
 }
 
-intermediate();
-function intermediate() {
-    setCardsArray(selectedCards)
-    shuffleArray(cardsArr);
-    renderCards(cardsArr);
-    updateImgPlayerSrc('1', 'gameImgPlayer1')
-    updateImgPlayerSrc('2', 'gameImgPlayer2')
-    registerEventListener_flipCard();
+function uncheckRadioButtons(): void{
+    let elemArray = document.querySelectorAll('input[type="radio"]:checked') as NodeListOf<HTMLInputElement>;
+    console.log(elemArray);
+    if (elemArray){
+        for (let i = 0; i < elemArray.length; i++) {
+            elemArray[i].checked = false;
+        }
+    }
 }
 
-function renderCards(arr: number[]) {
+function renderCards(arr: number[]): void {
     let gameField = document.getElementById('gameField') as HTMLElement;
     if (gameField) {
         gameField.innerHTML = '';
@@ -206,42 +232,75 @@ function flipCard(event: Event): void {
     if (cardsFlipped >= 2) return;
     const card = (event.target as HTMLElement).closest('.game__field__card') as HTMLButtonElement;
     if (!card || card.classList.contains('is-flipped')) return;
+    let { id1, id2 } = actionsStandard_flipCard(card);
+    if (cardsFlipped == 2) {
+        if (checkIfFlippedCardsEqual(id1, id2)) {
+            handleCardsEqualActions_flipCard();
+        } else {
+            handeCardsDifferentActions_flipCard();
+        }
+    }
+}
+
+function handeCardsDifferentActions_flipCard(): void {
+    setTimeout(() => {
+        openCardElements.forEach(item => item.classList.toggle('is-flipped'));
+        cardsFlipped = 0;
+        openCardElements = [];
+        (selectedPlayer == 1) ? selectedPlayer = 2 : selectedPlayer = 1;
+        updateImgPlayerSrc(`${selectedPlayer}`, 'gameImgPlayerCurrent');
+    }, 1250);
+}
+
+function handleCardsEqualActions_flipCard(): void {
+    (selectedPlayer == 1) ? player1Count += 1 : player2Count += 1;
+    setTimeout(() => {
+        openCardElements.forEach(item => item.classList.toggle('is-matching'));
+        cardsFlipped = 0;
+        openCardElements = [];
+        updatePlayerScoresAll();
+        checkGameEnd();
+    }, 125);
+}
+
+function updatePlayerScoresAll(reset?:'reset'): void {
+    playerUpdates.forEach(idNr => {
+        idNr.htmlIdRef.forEach(htmlId => {
+            updatePlayerScores(idNr.idRef, htmlId, reset)
+        })
+    })
+}
+
+function updatePlayerScores(idRef:string, htmlIdRef:string, reset?:'reset'): void {
+    let htmlElem = document.getElementById(htmlIdRef) as HTMLElement;
+        if (htmlElem) {
+            if (reset) {
+                htmlElem.innerText = '0'; 
+            } else {
+                htmlElem.innerText = (idRef == '1') ? player1Count.toString() : player2Count.toString(); 
+            }
+    }
+}
+
+function checkIfFlippedCardsEqual(id1: string | undefined, id2: string | undefined): boolean {
+    return id1 == id2;
+}
+
+function actionsStandard_flipCard(card: HTMLButtonElement): { id1: string | undefined; id2: string | undefined } {
     card.classList.toggle('is-flipped');
     cardsFlipped++;
     openCardElements.push(card);
-    if (cardsFlipped == 2) {
-        let id1 = openCardElements[0].dataset.id;
-        let id2 = openCardElements[1].dataset.id;
-
-        if (id1 == id2) {
-            (selectedPlayer == 1) ? player1Count += 1 : player2Count += 1;
-            setTimeout(() => {
-                let gamePlayer1Count = document.getElementById('gamePlayer1Count') as HTMLElement;
-                let gamePlayer2Count = document.getElementById('gamePlayer2Count') as HTMLElement;
-                openCardElements.forEach(item => item.classList.toggle('is-matching'));
-                cardsFlipped = 0;
-                openCardElements = [];
-                if (selectedPlayer == 1) {
-                    gamePlayer1Count.innerText = player1Count.toString();
-                } else {
-                    gamePlayer2Count.innerText = player2Count.toString();
-                }
-                checkGameEnd();
-            }, 125)
-        } else {
-            setTimeout(() => {
-                openCardElements.forEach(item => item.classList.toggle('is-flipped'));
-                cardsFlipped = 0;
-                openCardElements = [];
-                (selectedPlayer == 1) ? selectedPlayer = 2 : selectedPlayer = 1;
-                updateImgPlayerSrc(`${selectedPlayer}`, 'gameImgPlayerCurrent')
-            }, 1500);
-        }
-    }
-
+    let id1 = openCardElements[0].dataset.id;
+    let id2 = openCardElements[1]?.dataset.id;
+    return { id1, id2 };
 }
 
-function checkGameEnd() {
+function closePopup(): void {
+    let popover = document.getElementById('exitGamePopover') as HTMLElement;
+    popover.hidePopover()
+}
+
+function checkGameEnd(): void {
     if (checkAllCardsTurned()) {
         registerEventListener_restartBtn()
         if (checkStartPlayerWins()) {
@@ -250,13 +309,10 @@ function checkGameEnd() {
             updateImgPlayerSrc('2', 'winImgPlayer2')
             showSection(3);
             updateWinPlayerText()
-            // Note image/text/color according to startPlayer
-            console.log(`WIN: (startplayer ${startPlayer}) player1Count ${player1Count}, player2Count ${player2Count}`);
         } else if (checkStartPlayerLose()) {
             updateImgPlayerSrc('1', 'loseImgPlayer1')
             updateImgPlayerSrc('2', 'loseImgPlayer2')
             showSection(4);
-            console.log(`LOSE: (startplayer ${startPlayer}) player1Count ${player1Count}, player2Count ${player2Count}`);
         } else if (player1Count === player2Count) {
             //draw
             console.log(`DRAW: player1Count ${player1Count} = player2Count ${player2Count}`);
@@ -264,9 +320,6 @@ function checkGameEnd() {
         } else {
             // fall back (i.e. manipulation of playerCounts)
         }
-        setTimeout(() => {
-
-        }, 1500)
     }
 }
 
@@ -277,7 +330,7 @@ function registerEventListener_restartBtn(): void {
     }
 }
 
-function updateWinPlayerText() {
+function updateWinPlayerText(): void {
     const winPlayerTextRef = document.getElementById('winPlayerText') as HTMLElement;
     if (winPlayerTextRef) {
         winPlayerTextRef.classList.add(`color-player${startPlayer}`)
@@ -285,22 +338,22 @@ function updateWinPlayerText() {
     }
 }
 
-function checkAllCardsTurned() {
+function checkAllCardsTurned(): boolean {
     return player1Count + player2Count == selectedCards / 2
 }
 
-function checkStartPlayerWins() {
+function checkStartPlayerWins(): boolean {
     return (startPlayer == 1 && player1Count > player2Count) || (startPlayer == 2 && player1Count < player2Count)
 }
 
-function checkStartPlayerLose() {
+function checkStartPlayerLose(): boolean {
     return (startPlayer == 1 && player1Count < player2Count) || (startPlayer == 2 && player1Count > player2Count)
 }
 
-function restartGame() {
+function restartGame(): void {
     showSection(0);
     player1Count = player2Count = 0;
-    // UPDATE innerHTML text scores (id 'gamePlayer1Count' + 'gamePlayer2Count')
+    updatePlayerScoresAll('reset');
     document.getElementById('winPlayerText')?.classList.remove(`color-player${startPlayer}`);
     let gameField = document.getElementById('gameField') as HTMLElement;
     gameField && (gameField.innerHTML = '');
