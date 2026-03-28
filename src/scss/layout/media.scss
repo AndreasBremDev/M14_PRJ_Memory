@@ -22,7 +22,7 @@
     @include abstr.theme-after(50px);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 820px) {
     .settings {
         &__layout {
             @include abstr.flex-direction-align-justify-gap(column, flex-start, space-between, 4px);
@@ -109,7 +109,8 @@
             }
         }
 
-        &__field {
+        &__field,
+        &__field[data-board='large'] {
             grid-template-columns: repeat(4, 120px);
         }
     }
@@ -142,6 +143,10 @@
             }
         }
 
+        &__field[data-board='large']{
+            grid-template-columns: repeat(4, 75px);
+        }
+
         &__header {
             &__exit {
                 &__popover {
@@ -168,7 +173,8 @@
 
     .game {
 
-        &__field {
+        &__field,
+        &__field[data-board='large']{
             grid-template-columns: repeat(4, 50px);
         }
     }

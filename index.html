@@ -79,11 +79,11 @@
                                 <input type="radio" id="theme2" name="theme" value="Gaming theme">
                                 <label for="theme2">Gaming theme</label>
                             </div>
-                            <div class="settings__box__input">
+                            <div class="settings__box__input" style="display:none"> <!-- yet not implemented -->
                                 <input type="radio" id="theme3" name="theme" value="Projects theme">
                                 <label for="theme3">DA Projects theme</label>
                             </div>
-                            <div class="settings__box__input">
+                            <div class="settings__box__input" style="display:none"> <!-- yet not implemented -->
                                 <input type="radio" id="theme4" name="theme" value="Foods theme">
                                 <label for="theme4">Foods theme</label>
                             </div>
@@ -135,7 +135,7 @@
                         <div class="settings__box">
                             <div class="settings__box__input">
                                 <input type="radio" id="board0" name="board" value="Board 4 cards">
-                                <label for="board0">4 cards (DA testing purpose)</label>
+                                <label for="board0">4 cards (DA testing)</label>
                             </div>
                             <div class="settings__box__input">
                                 <input type="radio" id="board1" name="board" value="Board 16 cards">
@@ -264,14 +264,14 @@
                     <h2 class="win__h2">You WIN</h2>
                     <img id="winningPlayerImg" class="win__player-img" src="./assets/img/4_theme1_win_2.svg"
                         alt="Winning player icon">
-                    <h3 id="winPlayerText" class="win__h3 color-player2">ORANGE PLAYER</h3>
+                    <h3 id="winPlayerText" class="win__h3">ORANGE PLAYER</h3>
                     <div class="win__score">
                         <img id="winImgPlayer1" src="./assets/img/3_theme1_player_1.svg" alt="Player blue icon">
                         <span id="winPlayer1Count" class="game__header__player-info--blue">0</span>
                         <p>:</p>
                         <span id="winPlayer2Count" class="game__header__player-info--orange">0</span>
                         <img id="winImgPlayer2" src="./assets/img/3_theme1_player_2.svg" alt="Player orange icon"
-                            style="transform: scale(-1);">
+                            style="transform: scale(-1, 1);">
                     </div>
                     <button class="win__restart-btn m-b-64">
                         Back to home
@@ -284,7 +284,7 @@
             <div class="wrapper pd-general">
                 <article class="win__subsection">
                     <div class="win__section">
-                        <h2 class="win__h2">You LOSE</h2>
+                        <h2 id="loseTextH2" class="win__h2">You LOSE</h2>
                         <p class="win__p">Final score</p>
                         <div class="win__score">
                             <img id="loseImgPlayer1" src="./assets/img/3_theme1_player_1.svg" alt="Player blue icon">

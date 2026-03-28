@@ -9,7 +9,7 @@
         box-sizing: border-box;
         min-height: abstr.px-to-rem(64);
         font-size: abstr.px-to-rem(32);
-        margin-top: base.$settings-padding-top;
+        margin-block: clamp(8px, 3vw, 24px);
 
         &__player-info {
             @include abstr.flex-direction-align-justify-gap(row, center, center, 8px);
@@ -69,8 +69,8 @@
                 &__action {
                     font-size: abstr.px-to-rem(20);
                     padding: base.$game-exit-popover-padding;
-                    transition: 125ms ease-in;  
-                    
+                    transition: 125ms ease-in;
+
                     &:active,
                     &:hover,
                     &:focus-visible {
@@ -111,11 +111,15 @@
         display: grid;
         grid-template-columns: repeat(4, 120px); // need update, according to choice (16 -> 4 (x4)/ 24 -> 6 (x4) / 36 -> 6 (x6))
         place-items: center;
-        gap: clamp(8px, 2.5vw, 24px);
+        gap: clamp(8px, 2.5vw, 16px);
         justify-content: center;
-        margin-top: base.$settings-padding-top;
         flex-wrap: wrap;
+
+        &[data-board='large'] {
+            grid-template-columns: repeat(6, 120px);
+        }
     }
+
 }
 
 @keyframes slideIn {

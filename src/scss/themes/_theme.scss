@@ -3,6 +3,7 @@ main[data-theme="theme1"]{
     --background: hsla(180, 1%, 19%, 1);
     --font-color: hsla(0, 0%, 100%, 1);
     --main-theme-color: hsla(169, 62%, 57%, 1);
+    --game-header-banner: hsla(180, 1%, 19%, 1);
     --card-back: hsla(164, 31%, 93%, 1);
     --card-front-from: hsla(169, 47%, 37%, 1);
     --btn_exit_bg-unselect: hsla(169, 69%, 72%, 0.14);
@@ -23,12 +24,13 @@ main[data-theme='theme2'] {
     --background: hsla(199, 40%, 27%, 1);
     --font-color: hsla(0, 0%, 100%, 1);
     --main-theme-color: hsla(334, 80%, 51%, 1);
+    --game-header-banner: hsla(330, 96%, 79%, 0.2);
     --card-back: hsla(336, 22%, 95%, 1);
     --card-front-from: hsla(313, 41%, 24%, 1);
     --btn_exit_bg-unselect: hsla(334, 85%, 52%, 0.14);
     --btn_exit_bg-selected: hsla(334, 85%, 52%, 0.26);
     --btn_popup_back: hsla(334, 85%, 52%, 1);
-    --btn_popup_back_bg-active: hsla(334, 61%, 86%, 0.08);
+    --btn_popup_back_bg-active: hsla(334, 68%, 41%, 0.7);
     --btn_popup_back_border-active:hsla(345, 81%, 51%, 1);
     --btn_popup_exit_bg: hsla(334, 85%, 52%, 0.08);
 }
