@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <section class="screen-title" style="display: flex;">
+    <section class="screen-title" style="display: none;">
         <article class="wrapper">
             <h1 class="sr-only">Memory Game</h1>
             <div class="title__heading">
@@ -44,17 +44,18 @@
 
     <section class="screen-settings" style="display: flex;">
         <article class="wrapper pd-general">
-            <h2 class="settings__h2">Settings</h2>
-            <div class="settings__underline" aria-hidden="true">
-                <svg width="263" height="24" viewBox="0 0 263 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M-0.000152588 11.547L11.5469 23.094L23.0939 11.547L11.5469 -8.58307e-06L-0.000152588 11.547ZM262.547 11.547V9.547L11.5469 9.547V11.547V13.547L262.547 13.547V11.547Z"
-                        fill="#F0EA6E" />
-                </svg>
-            </div>
             <div class="settings__layout">
                 <div class="settings__layout__a">
                     <section>
+                        <h2 class="settings__h2">Settings</h2>
+                        <div class="settings__underline" aria-hidden="true">
+                            <svg width="263" height="24" viewBox="0 0 263 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M-0.000152588 11.547L11.5469 23.094L23.0939 11.547L11.5469 -8.58307e-06L-0.000152588 11.547ZM262.547 11.547V9.547L11.5469 9.547V11.547V13.547L262.547 13.547V11.547Z"
+                                    fill="#F0EA6E" />
+                            </svg>
+                        </div>
                         <h3 class="settings__h3">
                             <svg aria-hidden="true" width="32" height="32" viewBox="0 0 32 32" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -72,20 +73,44 @@
                         </h3>
                         <div class="settings__box">
                             <div class="settings__box__input">
-                                <input type="radio" id="theme1" name="theme" value="Coding theme">
-                                <label for="theme1">Coding theme</label>
+                                <input type="radio" id="theme1" name="theme" value="Coding theme" data-theme-id="1">
+                                <label for="theme1" data-theme-id="1">Coding</label>
+                                <svg width="45" height="18" viewBox="0 0 50 18" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path
+                                        d="M49.6603 8.66028L41 2.28095e-05L32.3397 8.66028L41 17.3205L49.6603 8.66028ZM0 8.66028L0 10.1603L41 10.1603V8.66028V7.16028L0 7.16028L0 8.66028Z"
+                                        fill="#F0EA6E" />
+                                </svg>
                             </div>
                             <div class="settings__box__input">
-                                <input type="radio" id="theme2" name="theme" value="Gaming theme">
-                                <label for="theme2">Gaming theme</label>
+                                <input type="radio" id="theme2" name="theme" value="Gaming theme" data-theme-id="2">
+                                <label for="theme2" data-theme-id="2">Gaming</label>
+                                <svg width="45" height="18" viewBox="0 0 50 18" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path
+                                        d="M49.6603 8.66028L41 2.28095e-05L32.3397 8.66028L41 17.3205L49.6603 8.66028ZM0 8.66028L0 10.1603L41 10.1603V8.66028V7.16028L0 7.16028L0 8.66028Z"
+                                        fill="#F0EA6E" />
+                                </svg>
                             </div>
                             <div class="settings__box__input" style="display:none"> <!-- yet not implemented -->
-                                <input type="radio" id="theme3" name="theme" value="Projects theme">
-                                <label for="theme3">DA Projects theme</label>
+                                <input type="radio" id="theme3" name="theme" value="Projects theme" data-theme-id="3">
+                                <label for="theme3" data-theme-id="3">DA Projects</label>
+                                <svg width="45" height="18" viewBox="0 0 50 18" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path
+                                        d="M49.6603 8.66028L41 2.28095e-05L32.3397 8.66028L41 17.3205L49.6603 8.66028ZM0 8.66028L0 10.1603L41 10.1603V8.66028V7.16028L0 7.16028L0 8.66028Z"
+                                        fill="#F0EA6E" />
+                                </svg>
                             </div>
                             <div class="settings__box__input" style="display:none"> <!-- yet not implemented -->
-                                <input type="radio" id="theme4" name="theme" value="Foods theme">
-                                <label for="theme4">Foods theme</label>
+                                <input type="radio" id="theme4" name="theme" value="Foods theme" data-theme-id="4">
+                                <label for="theme4" data-theme-id="4">Foods</label>
+                                <svg width="45" height="18" viewBox="0 0 50 18" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path
+                                        d="M49.6603 8.66028L41 2.28095e-05L32.3397 8.66028L41 17.3205L49.6603 8.66028ZM0 8.66028L0 10.1603L41 10.1603V8.66028V7.16028L0 7.16028L0 8.66028Z"
+                                        fill="#F0EA6E" />
+                                </svg>
                             </div>
                         </div>
                     </section>
@@ -107,12 +132,24 @@
                         </h3>
                         <div class="settings__box">
                             <div class="settings__box__input">
-                                <input type="radio" id="player1" name="player" value="Blue Player">
+                                <input type="radio" id="player1" name="player" value="Blue player">
                                 <label for="player1">Blue</label>
+                                <svg width="45" height="18" viewBox="0 0 50 18" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path
+                                        d="M49.6603 8.66028L41 2.28095e-05L32.3397 8.66028L41 17.3205L49.6603 8.66028ZM0 8.66028L0 10.1603L41 10.1603V8.66028V7.16028L0 7.16028L0 8.66028Z"
+                                        fill="#F0EA6E" />
+                                </svg>
                             </div>
                             <div class="settings__box__input">
-                                <input type="radio" id="player2" name="player" value="Orange Player">
+                                <input type="radio" id="player2" name="player" value="Orange player">
                                 <label for="player2">Orange</label>
+                                <svg width="45" height="18" viewBox="0 0 50 18" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path
+                                        d="M49.6603 8.66028L41 2.28095e-05L32.3397 8.66028L41 17.3205L49.6603 8.66028ZM0 8.66028L0 10.1603L41 10.1603V8.66028V7.16028L0 7.16028L0 8.66028Z"
+                                        fill="#F0EA6E" />
+                                </svg>
                             </div>
                         </div>
                     </section>
@@ -134,20 +171,34 @@
                         </h3>
                         <div class="settings__box">
                             <div class="settings__box__input">
-                                <input type="radio" id="board0" name="board" value="Board 4 cards">
-                                <label for="board0">4 cards (DA testing)</label>
-                            </div>
-                            <div class="settings__box__input">
                                 <input type="radio" id="board1" name="board" value="Board 16 cards">
                                 <label for="board1">16 cards</label>
+                                <svg width="45" height="18" viewBox="0 0 50 18" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path
+                                        d="M49.6603 8.66028L41 2.28095e-05L32.3397 8.66028L41 17.3205L49.6603 8.66028ZM0 8.66028L0 10.1603L41 10.1603V8.66028V7.16028L0 7.16028L0 8.66028Z"
+                                        fill="#F0EA6E" />
+                                </svg>
                             </div>
                             <div class="settings__box__input">
                                 <input type="radio" id="board2" name="board" value="Board 24 cards">
                                 <label for="board2">24 cards</label>
+                                <svg width="45" height="18" viewBox="0 0 50 18" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path
+                                        d="M49.6603 8.66028L41 2.28095e-05L32.3397 8.66028L41 17.3205L49.6603 8.66028ZM0 8.66028L0 10.1603L41 10.1603V8.66028V7.16028L0 7.16028L0 8.66028Z"
+                                        fill="#F0EA6E" />
+                                </svg>
                             </div>
                             <div class="settings__box__input">
                                 <input type="radio" id="board3" name="board" value="Board 36 cards">
                                 <label for="board3">36 cards</label>
+                                <svg width="45" height="18" viewBox="0 0 50 18" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path
+                                        d="M49.6603 8.66028L41 2.28095e-05L32.3397 8.66028L41 17.3205L49.6603 8.66028ZM0 8.66028L0 10.1603L41 10.1603V8.66028V7.16028L0 7.16028L0 8.66028Z"
+                                        fill="#F0EA6E" />
+                                </svg>
                             </div>
                         </div>
                     </section>
@@ -155,8 +206,8 @@
                 <div class="settings__layout__b">
                     <img id="settingThemeExample" class="settings__theme-img" src="./assets/img/2_theme_example1.png"
                         alt="theme example: code vibes">
-                    <div class="settings__start-section">
-                        <p id="themeText">Game theme</p>
+                    <section class="settings__start-section">
+                        <p id="themeText">Theme</p>
                         <img class="settings__start-section__line" src="./assets/img/2_line_diagonal_bottom-top.svg"
                             alt="diagonal line" aria-hidden="true">
                         <img class="settings__start-section__line--mobile" src="./assets/img/2_line_left-to-right.svg"
@@ -182,7 +233,7 @@
                             </svg>
                             Start
                         </button>
-                    </div>
+                    </section>
                 </div>
             </div>
         </article>
@@ -240,12 +291,14 @@
                             </svg>
                             Exit game
                         </button>
-                        <div id="exitGamePopover" popover="auto" class="game__header__exit__popover" 
-                            role="dialog" aria-labelledby="exitGameBtn">
+                        <div id="exitGamePopover" popover="auto" class="game__header__exit__popover" role="dialog"
+                            aria-labelledby="exitGameBtn">
                             Are you sure you want to quit the game?
                             <div>
-                                <button id="exitGamePopoverCancel" class="game__header__exit__popover__cancel">NO, back to game</button>
-                                <button id="exitGamePopoverAction" class="game__header__exit__popover__action">YES, quit game</button>
+                                <button id="exitGamePopoverCancel" class="game__header__exit__popover__cancel">NO, back
+                                    to game</button>
+                                <button id="exitGamePopoverAction" class="game__header__exit__popover__action">YES, quit
+                                    game</button>
                             </div>
                         </div>
                     </div>

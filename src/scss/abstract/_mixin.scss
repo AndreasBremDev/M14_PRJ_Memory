@@ -28,7 +28,7 @@ $settingInputAfter: (
     480: 480px,
     580: 580px,
     680: 680px,
-    768: 768px
+    820: 820px
 );
 
 @mixin responsive-media($maxSize) {
@@ -46,7 +46,9 @@ $theme-top-map: (
 
 @mixin theme-after($width) {
     @each $theme, $top in $theme-top-map {
-        input[id="#{$theme}"]:checked+label::after {
+        input[id="#{$theme}"]:checked+label::after,
+        input[id="#{$theme}"]:hover + label::after,
+        input[id="#{$theme}"] + label:hover::after {
             width: $width;
             height: calc(#{$width} / 1.1165);
             top: $top;

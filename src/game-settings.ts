@@ -11,8 +11,16 @@ export let settingIsChecked: (0 | 1)[] = [0, 0, 0];
 export function registerEventListener_SectionSetting(): void {
     const sourceArr = document.querySelectorAll('input') as NodeListOf<HTMLInputElement>;
     sourceArr.forEach(source => {
-        source.addEventListener('click', (event: Event) => selectSettings(event))
+        source.addEventListener('click', (event: Event) => selectSettings(event));
     })
+    const hoverArr = document.querySelectorAll('input[name="theme"], label[for^="theme"]') as NodeList;
+    hoverArr.forEach(element => {
+        element.addEventListener('mouseover', (event: Event) => {
+            let target = event.target as HTMLElement;
+            let sourceIdNr = target.dataset.themeId;
+            sourceIdNr && updateImgPlayerSrc(sourceIdNr, 'settingThemeExample');
+        })
+    });
 }
 
 /**
@@ -46,7 +54,7 @@ function retrieveElementIdentifiers(event: Event) {
 function setText_SectionSetting(event: Event, sourceIdName: string): void {
     let sourceElem = event.target as HTMLInputElement;
     let sourceValue: string = sourceElem.value;
-    let targetElem = document.querySelector(`div.settings__start-section > [id^=${sourceIdName}`) as HTMLElement;
+    let targetElem = document.querySelector(`.settings__start-section > [id^=${sourceIdName}`) as HTMLElement;
     targetElem.innerText = sourceValue;
 }
 
@@ -113,10 +121,10 @@ function actionBasedOnSelection_board(sourceIdNr: string) {
     if (sourceIdNr === '1') {
         return selectedCards = 16;
     } else if (sourceIdNr === '2') {
-        document.getElementById('gameField')?.setAttribute('data-board','large');
+        document.getElementById('gameField')?.setAttribute('data-board', 'large');
         return selectedCards = 24;
     } else if (sourceIdNr === '3') {
-        document.getElementById('gameField')?.setAttribute('data-board','large');
+        document.getElementById('gameField')?.setAttribute('data-board', 'large');
         return selectedCards = 36;
     } else {
         return selectedCards = 4;

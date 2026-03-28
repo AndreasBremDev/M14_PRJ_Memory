@@ -24,6 +24,7 @@ let playerUpdates: PlayerUpdate[] = [
         htmlIdRef: ['gamePlayer2Count', 'winPlayer2Count', 'losePlayer2Count']
     }
 ]
+let startSectionText: string[] = ['Theme', 'Player', 'Board size']
 
 init();
 
@@ -91,6 +92,7 @@ function startGame(): void {
     if (settingIsChecked.every(el => el === 1)) {
         showSection(2);
         uncheckRadioButtons();
+        unsetStartSection();
         setCardsArray(selectedCards)
         shuffleArray(cardsArr);
         renderCards(cardsArr);
@@ -110,6 +112,17 @@ function uncheckRadioButtons(): void {
             elemArray[i].checked = false;
         }
     }
+}
+
+function unsetStartSection(): void {
+    let elemArray = document.querySelectorAll('.settings__start-section > p') as NodeListOf<HTMLElement>;
+    console.log(elemArray);
+    if (elemArray) {
+        for (let i = 0; i < elemArray.length; i++) {
+            elemArray[i].innerText = startSectionText[i];
+        }
+    }
+    
 }
 
 /**
