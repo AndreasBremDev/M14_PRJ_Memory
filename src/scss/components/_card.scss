@@ -22,7 +22,7 @@
     &__face {
         position: absolute;
         inset: 0;
-        background: linear-gradient(45deg, var(--card-front-from), var(--main-theme-color)); // linear-gradient(45deg, hsla(169, 47%, 37%, 1), hsla(169, 62%, 57%, 1))
+        background: linear-gradient(45deg, var(--card-front-from), var(--main-theme-color));
         backface-visibility: hidden;
         border-radius: 15px;
         @include abstr.flex-direction-align-justify-gap(row, center, center, 8px);

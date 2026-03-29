@@ -34,6 +34,7 @@ $game-exit-popover-padding: 16px 24px;
 .screen-title,
 .screen-settings,
 .screen-game,
+.screen-game-end,
 .screen-win,
 .screen-lose {
     width: 100%;
@@ -41,6 +42,7 @@ $game-exit-popover-padding: 16px 24px;
 }
 
 .screen-game,
+.screen-game-end,
 .screen-win,
 .screen-lose {
     background-color: var(--background);

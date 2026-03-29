@@ -1,30 +1,13 @@
 import './scss/main.scss';
 import { renderCardsHTML } from './template';
-import {registerEventListener_SectionSetting, updateImgPlayerSrc, applyThemeToSectionScreenGame} from './game-settings';
-import {themeId, selectedCards, startPlayer, settingIsChecked} from './game-settings'
-import { gameState } from './state';
-
-interface PlayerUpdate {
-    idRef: string;
-    htmlIdRef: string[];
-}
-
+import { registerEventListener_SectionSetting, updateImgPlayerSrc, applyThemeToSectionScreenGame } from './game-settings';
+import { themeId, selectedCards, startPlayer, settingIsChecked } from './game-settings'
+import { gameState, playerUpdates, startSectionText } from './state';
 let cardsArr: number[] = [];
 let cardsFlipped: number = 0;
 let openCardElements: HTMLElement[] = [];
 let player1Count: number = 0;
 let player2Count: number = 0;
-let playerUpdates: PlayerUpdate[] = [
-    {
-        idRef: '1',
-        htmlIdRef: ['gamePlayer1Count', 'winPlayer1Count', 'losePlayer1Count']
-    },
-    {
-        idRef: '2',
-        htmlIdRef: ['gamePlayer2Count', 'winPlayer2Count', 'losePlayer2Count']
-    }
-]
-let startSectionText: string[] = ['Theme', 'Player', 'Board size']
 
 init();
 
@@ -34,7 +17,7 @@ init();
 function init() {
     showSection(0);
     applyThemeToSectionScreenGame('theme' + themeId);
-    document.getElementById('gameField')?.setAttribute('data-board','');
+    document.getElementById('gameField')?.setAttribute('data-board', '');
     registerEventListener_TitlePageStartBtn();
     registerEventListener_SectionSetting();
     registerEventListener_SectionSetting_StartGame();
@@ -96,8 +79,7 @@ function startGame(): void {
         setCardsArray(selectedCards)
         shuffleArray(cardsArr);
         renderCards(cardsArr);
-        updateImgPlayerSrc('1', 'gameImgPlayer1')
-        updateImgPlayerSrc('2', 'gameImgPlayer2')
+        updateImgPlayerSrcAll();
         registerEventListener_flipCard();
     }
 }
@@ -114,15 +96,28 @@ function uncheckRadioButtons(): void {
     }
 }
 
+/**
+ * Resets the text content of the settings start section to their default labels.
+ */
 function unsetStartSection(): void {
     let elemArray = document.querySelectorAll('.settings__start-section > p') as NodeListOf<HTMLElement>;
-    console.log(elemArray);
     if (elemArray) {
         for (let i = 0; i < elemArray.length; i++) {
             elemArray[i].innerText = startSectionText[i];
         }
     }
-    
+
+}
+
+/**
+ * Updates the image sources for all player-related image elements based on the current state.
+ */
+function updateImgPlayerSrcAll(): void {
+    playerUpdates.forEach(idNr => {
+        idNr.htmlIdImgRef.forEach(htmlId => {
+            updateImgPlayerSrc(idNr.idRef, htmlId)
+        })
+    })
 }
 
 /**
@@ -288,26 +283,50 @@ function closePopup(): void {
 function checkGameEnd(): void {
     if (checkAllCardsTurned()) {
         registerEventListener_restartBtn()
-        document.getElementById('gameField')?.setAttribute('data-board','');
+        document.getElementById('gameField')?.setAttribute('data-board', '');
         if (checkStartPlayerWins()) {
-            updateImgPlayerSrc(`${startPlayer}`, 'winningPlayerImg')
-            updateImgPlayerSrc('1', 'winImgPlayer1')
-            updateImgPlayerSrc('2', 'winImgPlayer2')
-            updateWinPlayerText();
-            showSection(3);
+            handleWinningActions_GameEnd();
         } else if (checkStartPlayerLose()) {
-            updateImgPlayerSrc('1', 'loseImgPlayer1')
-            updateImgPlayerSrc('2', 'loseImgPlayer2')
-            showSection(4);
+            handleLosingActions_GameEnd();
         } else if (player1Count === player2Count) {
-            updateImgPlayerSrc('1', 'loseImgPlayer1')
-            updateImgPlayerSrc('2', 'loseImgPlayer2')
-            updateLoseTextToDraw();
-            showSection(4);
+            handleDrawActions_GameEnd();
         } else {
             console.log('Error: manipulation of playerCounts detected');
         }
     }
+}
+
+/**
+ * Handles the UI and logic updates when the start player wins the game end screen.
+ */
+function handleWinningActions_GameEnd(): void {
+    showSection(3);
+    setTimeout(() => {
+        updateImgPlayerSrc(`${startPlayer}`, 'winningPlayerImg');
+        updateWinPlayerText();
+        showSection(4);
+    }, 2000)
+}
+
+/**
+ * Handles the UI and logic updates when the start player loses the game end screen.
+ */
+function handleLosingActions_GameEnd(): void {
+    showSection(3);
+    setTimeout(() => {
+        showSection(5);
+    }, 2000)
+}
+
+/**
+ * Handles the UI and logic updates when the game ends in a draw.
+ */
+function handleDrawActions_GameEnd(): void {
+    showSection(3);
+    setTimeout(() => {
+        updateLoseTextToDraw();
+        showSection(5);
+    }, 2000)
 }
 
 /**
@@ -331,7 +350,10 @@ function updateWinPlayerText(): void {
     }
 }
 
-function updateLoseTextToDraw():void {
+/**
+ * Updates the lose screen text to display 'DRAW' in case of a draw situation.
+ */
+function updateLoseTextToDraw(): void {
     const loseText = document.getElementById('loseTextH2') as HTMLElement;
     if (loseText) {
         loseText.innerHTML = 'DRAW';

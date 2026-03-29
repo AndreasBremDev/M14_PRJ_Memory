@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <section class="screen-title" style="display: none;">
+    <section class="screen-title" style="display: flex;">
         <article class="wrapper">
             <h1 class="sr-only">Memory Game</h1>
             <div class="title__heading">
@@ -307,6 +307,25 @@
 
                 </section>
 
+            </div>
+        </section>
+
+        <section class="screen-game-end" style="display: flex;">
+            <div class="wrapper pd-general">
+                <article class="win__subsection">
+                    <div class="win__section">
+                        <h2 class="win__h2">GAME END</h2>
+                        <p class="win__p">Final score</p>
+                        <div class="win__score">
+                            <img id="gameEndImgPlayer1" src="./assets/img/3_theme1_player_1.svg" alt="Player blue icon">
+                            <span id="gameEndPlayer1Count" class="game__header__player-info--blue">0</span>
+                            <p>:</p>
+                            <span id="gameEndPlayer2Count" class="game__header__player-info--orange">0</span>
+                            <img id="gameEndImgPlayer2" src="./assets/img/3_theme1_player_2.svg" alt="Player orange icon"
+                                style="transform: scale(-1, 1);">
+                        </div>
+                    </div>
+                </article>
             </div>
         </section>
 

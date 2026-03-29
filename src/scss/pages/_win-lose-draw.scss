@@ -51,5 +51,11 @@
         padding: 16px 24px;
         background-color: var(--btn_exit_bg-unselect);
         border: 1px solid var(--main-theme-color);
+
+        &:active,
+        &:hover,
+        &:focus-visible{
+            background-color: var(--btn_exit_bg-selected);
+        }
     }
 }

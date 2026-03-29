@@ -109,7 +109,7 @@
 
     &__field {
         display: grid;
-        grid-template-columns: repeat(4, 120px); // need update, according to choice (16 -> 4 (x4)/ 24 -> 6 (x4) / 36 -> 6 (x6))
+        grid-template-columns: repeat(4, 120px);
         place-items: center;
         gap: clamp(8px, 2.5vw, 16px);
         justify-content: center;
