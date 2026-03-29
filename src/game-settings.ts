@@ -39,7 +39,7 @@ export function selectSettings(event: Event): void {
  * @param event - The event triggered by the input element.
  * @returns An object containing sourceIdName and sourceIdNr.
  */
-function retrieveElementIdentifiers(event: Event) {
+function retrieveElementIdentifiers(event: Event): { sourceIdName:string, sourceIdNr:string } {
     let sourceElem = event.target as HTMLInputElement;
     let sourceIdName: string = sourceElem.id.slice(0, -1);
     let sourceIdNr: string = sourceElem.id.slice(-1);
@@ -83,7 +83,7 @@ function actionBasedOnSelection_SectionSetting(sourceIdNr: string, sourceIdName:
  * Handles theme selection logic and updates the UI accordingly.
  * @param sourceIdNr - The selected theme's number as a string.
  */
-function actionBasedOnSelection_theme(sourceIdNr: string) {
+function actionBasedOnSelection_theme(sourceIdNr: string): void {
     themeId = parseInt(sourceIdNr);
     updateImgPlayerSrc(sourceIdNr, 'settingThemeExample');
     applyThemeToSectionScreenGame('theme' + sourceIdNr);
@@ -105,7 +105,7 @@ export function applyThemeToSectionScreenGame(themeName: string): void {
  * Handles player selection logic and updates the UI accordingly.
  * @param sourceIdNr - The selected player's number as a string.
  */
-function actionBasedOnSelection_player(sourceIdNr: string) {
+function actionBasedOnSelection_player(sourceIdNr: string): void {
     gameState.selectedPlayer = startPlayer = parseInt(sourceIdNr);
     updateImgPlayerSrc(sourceIdNr, 'gameImgPlayerCurrent');
     settingIsChecked[1] = 1;
@@ -116,7 +116,7 @@ function actionBasedOnSelection_player(sourceIdNr: string) {
  * @param sourceIdNr - The selected board's number as a string.
  * @returns The number of selected cards.
  */
-function actionBasedOnSelection_board(sourceIdNr: string) {
+function actionBasedOnSelection_board(sourceIdNr: string): number {
     settingIsChecked[2] = 1;
     if (sourceIdNr === '1') {
         return selectedCards = 16;
